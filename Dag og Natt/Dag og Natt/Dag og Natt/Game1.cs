@@ -18,6 +18,7 @@ namespace Dag_og_Natt
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        int test = 0;
 
         public Game1()
         {
