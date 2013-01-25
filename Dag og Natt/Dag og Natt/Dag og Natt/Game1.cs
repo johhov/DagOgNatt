@@ -18,7 +18,8 @@ namespace Dag_og_Natt
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        int test = 0;
+
+        Input input;
 
         public Game1()
         {
@@ -34,7 +35,7 @@ namespace Dag_og_Natt
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+            input = new Input();
 
             base.Initialize();
         }
@@ -67,11 +68,12 @@ namespace Dag_og_Natt
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            input.Update();
             // Allows the game to exit
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
+            if (input.IsKeyPressedOnce(Keys.Escape))
+            {
                 this.Exit();
-
-            // TODO: Add your update logic here
+            }
 
             base.Update(gameTime);
         }
