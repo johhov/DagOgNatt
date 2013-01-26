@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -20,9 +22,9 @@ namespace Dag_og_Natt
 		private Movable plant;
 		private Texture2D testNightOverlay;
 
-		private bool day;
-
-	private Player player;
+        private List<Movable> collidables;
+        
+	    private Player player;
 
 		public Game1()
 		{
@@ -45,9 +47,13 @@ namespace Dag_og_Natt
 			player = new Player();
 			paraLayerOne = new Parallax();
 			Global.offset = 0;
-			gate = new Movable(new Vector2(800, 550));
+			gate = new Movable(new Vector2(700, 550));
 			plant = new Movable(new Vector2(300, 550));
-			day = true;
+			Global.day = true;
+
+
+            collidables = new List<Movable>();
+			collidables.Add(gate);
 
 			base.Initialize();//should be bottom	   
 		}
@@ -93,17 +99,22 @@ namespace Dag_og_Natt
 
 			if (input.IsKeyPressedOnce(Keys.LeftControl))
 			{
-				day = !day;
+                Global.day = !Global.day;
 			}
 
 			if (input.IsKeyPressed(Keys.Left))
 			{
-				player.Move(new Vector2(-1,0)); 
+				player.Move(new Vector2(-1,0), collidables); 
 			}
+
 			if (input.IsKeyPressed(Keys.Right))
 			{
-				player.Move(new Vector2(1,0));
+				player.Move(new Vector2(1, 0), collidables);
 			}
+
+
+
+            gate.Update();
 			player.Update();
 
 			Global.offset += player.Speed * player.AtEdge;
@@ -126,8 +137,6 @@ namespace Dag_og_Natt
 
 			paraLayerOne.Draw(spriteBatch);
 
-			player.Draw(spriteBatch);
-
 			gate.Draw(spriteBatch);
 
 			if (day)
@@ -135,7 +144,9 @@ namespace Dag_og_Natt
 				plant.Draw(spriteBatch);
 			}
 
-			if (!day)
+            player.Draw(spriteBatch);
+
+            if (!Global.day)
 			{
 				spriteBatch.Draw(testNightOverlay, new Vector2(0, 0), Color.White);
 			}
