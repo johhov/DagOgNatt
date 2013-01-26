@@ -139,7 +139,7 @@ namespace Dag_og_Natt
 
 			gate.Draw(spriteBatch);
 
-			if (day)
+			if (Global.day)
 			{
 				plant.Draw(spriteBatch);
 			}
