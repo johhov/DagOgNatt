@@ -1,33 +1,47 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace Dag_og_Natt
 {
-	internal class Movable : ScreenObject
-	{
-        bool passable = false;
+    internal class Movable : ScreenObject
+    {
+        private bool passableAtDay = true;
+        private bool passableAtNight = true;
+        private bool passable = true;
         protected Vector2 moveTo;
 
-        public bool Passable
+        public bool PassableAtDay
         {
             set { passable = value; }
             get { return passable; }
         }
 
-		public Movable()
-		{
-            
-		}
+        public bool PassableAtNight
+        {
+            set { passable = value; }
+            get { return passable; }
+        }
 
-		public Movable(Vector2 position)
-		{
-			this.position = position;
+        public bool Passable
+        {
+            get { return passable; }
+        }
+
+        public Movable()
+        {
+        }
+
+        public Movable(Vector2 position, bool passableAtDay, bool passableAtNight)
+        {
+            this.position = position;
+            this.staringPosition = position;
             moveTo = position;
-		}
+            this.passableAtDay = passableAtDay;
+            this.passableAtNight = passableAtNight;
+        }
 
-		public void Update()
-		{
-            if (!Global.day /*&& Global.offset < this.position*/)
+        public void Update()
+        {
+            if ((passableAtDay && Global.day) || (passableAtNight && !Global.day))
             {
                 passable = true;
             }
@@ -36,12 +50,12 @@ namespace Dag_og_Natt
                 passable = false;
             }
 
-			this.position = moveTo;
-		}
+            this.position.X = staringPosition.X - Global.offset;
+        }
 
         public void Move(Vector2 direction)
         {
             moveTo = position + direction;
         }
-	}
+    }
 }
