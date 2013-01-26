@@ -2,7 +2,7 @@
 {
     internal class Global
     {
-	    public static int offset;
+        public static int offset;
         public static bool day;
     }
 }
