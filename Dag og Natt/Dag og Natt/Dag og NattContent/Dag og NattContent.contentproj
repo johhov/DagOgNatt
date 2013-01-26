@@ -126,15 +126,22 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="SolUI.png">
-      <Name>SolUI</Name>
+    <Compile Include="Parallax\City_road_first_row.png">
+      <Name>City_road_first_row</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="numbers.png">
-      <Name>numbers</Name>
+    <Compile Include="Parallax\City_second_row.png">
+      <Name>City_second_row</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Parallax\City_excavator.png">
+      <Name>City_excavator</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

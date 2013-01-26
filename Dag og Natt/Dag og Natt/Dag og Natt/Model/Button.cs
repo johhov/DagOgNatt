@@ -39,7 +39,7 @@ namespace Dag_og_Natt
 
             if (bounds == new Rectangle(0, 0, 0, 0))
             {
-               bounds = new Rectangle((int)Position.X, (int)Position.Y, Texture.Width, Texture.Height);
+               bounds = new Rectangle((int)Position.X, (int)Position.Y, TextureDay.Width, TextureDay.Height);
             }
 
             bool isMouseOver = bounds.Contains((int)input.Position.X, (int)input.Position.Y);
@@ -87,11 +87,11 @@ namespace Dag_og_Natt
             switch (state)
             {
                 case MouseStatus.Normal:
-                    spriteBatch.Draw(Texture, bounds, Color.White);
+                    spriteBatch.Draw(TextureDay, bounds, Color.White);
                     break;
 
                 case MouseStatus.Released:
-                    spriteBatch.Draw(Texture, bounds, Color.DarkGray);
+                    spriteBatch.Draw(TextureDay, bounds, Color.DarkGray);
                     break;
 
                 case MouseStatus.Clicked:
@@ -103,11 +103,11 @@ namespace Dag_og_Natt
                             state = MouseStatus.Normal;
                         }
                     }
-                    spriteBatch.Draw(Texture, bounds, Color.Red);
+                    spriteBatch.Draw(TextureDay, bounds, Color.Red);
                     break;
 
                 default:
-                    spriteBatch.Draw(Texture, bounds, Color.Black);
+                    spriteBatch.Draw(TextureDay, bounds, Color.Black);
                     break;
             }
         }

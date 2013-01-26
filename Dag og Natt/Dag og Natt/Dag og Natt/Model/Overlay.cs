@@ -38,7 +38,7 @@ namespace Dag_og_Natt
 		{
 			if (alpha > 0 && alpha < 120)
 			{
-				spriteBatch.Draw(texture, position, null, new Color(255, 255, 255, alpha));
+				spriteBatch.Draw(textureDay, position, null, new Color(255, 255, 255, alpha));
 			}
 		}
 	}
