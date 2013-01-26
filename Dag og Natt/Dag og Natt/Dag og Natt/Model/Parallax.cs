@@ -14,7 +14,7 @@ namespace Dag_og_Natt
         {
             if (player.AtEdge != 0)
             {
-                position += new Vector2(player.Speed*-player.AtEdge,0);
+		    position = new Vector2(-Global.offset, 0);
             }
         }
     }

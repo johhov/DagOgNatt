@@ -17,6 +17,7 @@ namespace Dag_og_Natt
 		private Input input;
 		private Parallax paraLayerOne;
 		private Movable gate;
+		private Movable plant;
 		private Texture2D testNightOverlay;
 
 		private bool day;
@@ -45,7 +46,7 @@ namespace Dag_og_Natt
 			paraLayerOne = new Parallax();
 			Global.offset = 0;
 			gate = new Movable(new Vector2(800, 550));
-
+			plant = new Movable(new Vector2(300, 550));
 			day = true;
 
 			base.Initialize();//should be bottom	   
@@ -63,6 +64,7 @@ namespace Dag_og_Natt
 			testNightOverlay = Content.Load<Texture2D>("TestNightOverlay");
 			player.Texture = Content.Load<Texture2D>("Player\\TestGray");
 			gate.Texture = Content.Load<Texture2D>("Gate");
+			plant.Texture = Content.Load<Texture2D>("Plant");
 		}
 
 		/// <summary>
@@ -104,6 +106,8 @@ namespace Dag_og_Natt
 			}
 			player.Update();
 
+			Global.offset += player.Speed * player.AtEdge;
+
 			paraLayerOne.Update(player);
 
 			//Character
@@ -125,6 +129,11 @@ namespace Dag_og_Natt
 			player.Draw(spriteBatch);
 
 			gate.Draw(spriteBatch);
+
+			if (day)
+			{
+				plant.Draw(spriteBatch);
+			}
 
 			if (!day)
 			{
