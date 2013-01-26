@@ -6,13 +6,18 @@ namespace Dag_og_Natt
 	internal class ScreenObject
 	{
 		protected Vector2 position;
-		protected int origin;
-		protected int center;
-		protected Texture2D texture;
+		protected Vector2 origin;
+		protected Vector2 center;
+		public Texture2D texture
+		{
+			get { return texture; }
+			set {this.texture = value;}
+		}
 
-		public void draw(SpriteBatch spriteBatch)
+		public void Draw(SpriteBatch spriteBatch)
 		{
 			spriteBatch.Draw(texture, position, Color.White);
 		}
+
 	}
 }

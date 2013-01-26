@@ -21,7 +21,7 @@ namespace Dag_og_Natt
 
         private bool day;
 
-	Player player;
+	private Player player;
 
         public Game1()
         {
@@ -60,6 +60,7 @@ namespace Dag_og_Natt
             spriteBatch = new SpriteBatch(GraphicsDevice);
             backgroundTestWhite = Content.Load<Texture2D>("Parallax\\TestWhite");
             backgroundTestBlack = Content.Load<Texture2D>("Parallax\\TestBlack");
+	    player.texture = Content.Load<Texture2D>("Player\\TestGray");
         }
 
         /// <summary>
@@ -93,7 +94,11 @@ namespace Dag_og_Natt
 
 	    if (input.IsKeyPressed(Keys.Left))
 	    {
-		    
+		    player.MoveLeft(); 
+	    }
+	    if (input.IsKeyPressed(Keys.Right))
+	    {
+		    player.MoveRight();
 	    }
 
 
@@ -119,6 +124,8 @@ namespace Dag_og_Natt
             {
                 spriteBatch.Draw(backgroundTestBlack, new Vector2(0, 0), Color.White);
             }
+
+	    player.Draw(spriteBatch);
 
             spriteBatch.End();
             base.Draw(gameTime);
