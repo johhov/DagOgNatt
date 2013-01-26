@@ -17,7 +17,7 @@ namespace Dag_og_Natt
         private Input input;
 
         private Texture2D backgroundTestWhite;
-        private Texture2D backgroundTestBlack;
+        private Texture2D testNightOverlay;
 
         private bool day;
 
@@ -54,7 +54,7 @@ namespace Dag_og_Natt
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             backgroundTestWhite = Content.Load<Texture2D>("Parallax\\TestWhite");
-            backgroundTestBlack = Content.Load<Texture2D>("Parallax\\TestBlack");
+            testNightOverlay = Content.Load<Texture2D>("TestNightOverlay");
         }
 
         /// <summary>
@@ -100,13 +100,11 @@ namespace Dag_og_Natt
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
 
-            if (day)
+            spriteBatch.Draw(backgroundTestWhite, new Vector2(0, 0), Color.White);
+
+            if (!day)
             {
-                spriteBatch.Draw(backgroundTestWhite, new Vector2(0, 0), Color.White);
-            }
-            else
-            {
-                spriteBatch.Draw(backgroundTestBlack, new Vector2(0, 0), Color.White);
+                spriteBatch.Draw(testNightOverlay, new Vector2(0, 0), Color.White);
             }
 
             spriteBatch.End();
