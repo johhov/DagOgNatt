@@ -21,6 +21,8 @@ namespace Dag_og_Natt
 
         private bool day;
 
+	Player player;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -43,6 +45,9 @@ namespace Dag_og_Natt
             day = true;
 
             base.Initialize();
+
+	    player = new Player();
+	   
         }
 
         /// <summary>
@@ -85,6 +90,12 @@ namespace Dag_og_Natt
             {
                 day = !day;
             }
+
+	    if (input.IsKeyPressed(Keys.Left))
+	    {
+		    
+	    }
+
 
             //Character
 
