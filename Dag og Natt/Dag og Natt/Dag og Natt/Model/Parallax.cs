@@ -5,15 +5,18 @@ namespace Dag_og_Natt
 {
     internal class Parallax : Movable
     {
-        public Parallax()
+        float speed;
+
+        public Parallax(float speed)
         {
+            this.speed = speed;
         }
 
         public void Update(Player player)
         {
             if (player.AtEdge != 0)
             {
-                position = new Vector2(-Global.offset, 0);
+                position = new Vector2(-Global.offset/speed, 0);
             }
         }
 

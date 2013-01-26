@@ -43,6 +43,11 @@ namespace Dag_og_Natt
                 atEdge = -1;
                 position.X = boundingBoxLeftEdge + 1;
                 moveTo.X = position.X;
+
+                if (Global.offset <= 0)
+                {
+                    atEdge = 0;
+                }
             }
             else if (position.X >= boundingBoxRightEdge)
             {
