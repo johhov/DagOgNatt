@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
+
 namespace Dag_og_Natt
 {
     /// <summary>
@@ -21,6 +22,8 @@ namespace Dag_og_Natt
         private Movable gate;
         private Movable plant;
 	private NPC monster;
+	private Overlay pulse;
+	
 
         private Texture2D testNightOverlay;
 		private Song song;
@@ -56,6 +59,7 @@ namespace Dag_og_Natt
             gate = new Movable(new Vector2(1000, 550), false, true);
             plant = new Movable(new Vector2(700, 550), false, true);
 	    monster = new NPC(new Vector2(1700, 550), true, false);
+	    pulse = new Overlay(0, new Vector2(0, 0), new Vector2(0, 0), new Vector2(0, 0));
 	
 
             collidables = new List<Movable>();
@@ -79,6 +83,7 @@ namespace Dag_og_Natt
             gate.Texture = Content.Load<Texture2D>("Gate");
             plant.Texture = Content.Load<Texture2D>("Plant");
 	    monster.Texture = Content.Load<Texture2D>("Monster");
+	    pulse.Texture = Content.Load<Texture2D>("Hjertebank");
 			song = Content.Load<Song>("Song\\Heartbeat");
 			MediaPlayer.IsRepeating = true;
 			MediaPlayer.Volume = 0.3f;
@@ -129,6 +134,7 @@ namespace Dag_og_Natt
 	    plant.Update();
 	    monster.Update();
             player.Update();
+	    pulse.Update(gameTime);
 
             Global.offset += player.Speed * player.AtEdge;
 
@@ -148,7 +154,7 @@ namespace Dag_og_Natt
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            spriteBatch.Begin();
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);//punches graphics at .end and allows alpha
 
             paraLayerOne.Draw(spriteBatch);
 
@@ -166,6 +172,8 @@ namespace Dag_og_Natt
             {
                 spriteBatch.Draw(testNightOverlay, new Vector2(0, 0), Color.White);
             }
+
+	    pulse.Draw(spriteBatch);
 
             spriteBatch.End();
             base.Draw(gameTime);

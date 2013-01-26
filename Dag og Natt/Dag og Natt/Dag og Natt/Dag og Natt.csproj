@@ -111,6 +111,7 @@
     <Compile Include="Model\NPC.cs" />
     <Compile Include="Model\Global.cs" />
     <Compile Include="Model\Movable.cs" />
+    <Compile Include="Model\Overlay.cs" />
     <Compile Include="Model\Parallax.cs" />
     <Compile Include="Model\Player.cs" />
     <Compile Include="Model\ScreenObject.cs" />

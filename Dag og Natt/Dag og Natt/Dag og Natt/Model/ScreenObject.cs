@@ -5,7 +5,7 @@ namespace Dag_og_Natt
 {
     internal class ScreenObject
     {
-        protected Vector2 staringPosition;
+        protected Vector2 startingPosition;
         protected Vector2 position;
         protected Vector2 origin;
         protected Vector2 center;

@@ -33,7 +33,7 @@ namespace Dag_og_Natt
         public Movable(Vector2 position, bool passableAtDay, bool passableAtNight)
         {
             this.position = position;
-            this.staringPosition = position;
+            this.startingPosition = position;
             moveTo = position;
             this.passableAtDay = passableAtDay;
             this.passableAtNight = passableAtNight;
@@ -50,7 +50,7 @@ namespace Dag_og_Natt
                 passable = false;
             }
 
-            this.position.X = staringPosition.X - Global.offset;
+            this.position.X = startingPosition.X - Global.offset;
         }
 
         public void Move(Vector2 direction)

@@ -28,7 +28,7 @@ namespace Dag_og_Natt
 				passable = false;
 			}
 
-			this.position.X = staringPosition.X - Global.offset + objectOffset;
+			this.position.X = startingPosition.X - Global.offset + objectOffset;
       
 			
 		}
