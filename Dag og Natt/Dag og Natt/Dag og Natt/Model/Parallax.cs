@@ -7,6 +7,7 @@ namespace Dag_og_Natt
     internal class Parallax : Movable
     {
         private float speed;
+        private int layer;
         private int playerBoundingBoxLeft;
         private int playerBoundingBoxRight;
 
@@ -23,8 +24,9 @@ namespace Dag_og_Natt
             set { this.texturesNight.Add(value); }
         }
 
-        public Parallax(float speed)
+        public Parallax(float speed, int layer)
         {
+            this.layer = layer;
             this.speed = speed;
             this.position = new Vector2(0, 0);
             texturesDay = new List<Texture2D>();
@@ -47,11 +49,17 @@ namespace Dag_og_Natt
             if (position.X + texturesDay[0].Width < Global.WINDOWWIDTH)
             {
                 spriteBatch.Draw(texturesDay[1], new Vector2(position.X + texturesDay[0].Width, 0), Color.White);
-                spriteBatch.Draw(texturesDay[0], position, Color.White);
+                if (Global.day || layer != 2)
+                {
+                    spriteBatch.Draw(texturesDay[0], position, Color.White);
+                }
             }
             else
             {
-                spriteBatch.Draw(texturesDay[0], position, Color.White);
+                if (Global.day || layer != 2)
+                {
+                    spriteBatch.Draw(texturesDay[0], position, Color.White);
+                }
             }
         }
     }

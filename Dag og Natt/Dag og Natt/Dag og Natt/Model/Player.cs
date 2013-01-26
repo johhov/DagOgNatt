@@ -40,8 +40,8 @@ namespace Dag_og_Natt
             center = new Vector2(0, 0);
             speed = 4;
             atEdge = 0;
-            boundingBoxLeftEdge = 270;
-            boundingBoxRightEdge = 810;
+            boundingBoxLeftEdge = 390;
+            boundingBoxRightEdge = 515;
             moveTo = position;
         }
 
