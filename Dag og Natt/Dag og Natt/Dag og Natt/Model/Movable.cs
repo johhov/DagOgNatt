@@ -5,7 +5,7 @@ namespace Dag_og_Natt
 {
 	internal class Movable : ScreenObject
 	{
-		public void move(Vector2 position)
+		protected void move(Vector2 position)
 		{
 			this.position += position;
 		}
