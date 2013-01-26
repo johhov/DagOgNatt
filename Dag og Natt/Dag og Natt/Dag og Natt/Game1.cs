@@ -20,6 +20,7 @@ namespace Dag_og_Natt
         private Parallax paraLayerOne;
         private Movable gate;
         private Movable plant;
+
         private Texture2D testNightOverlay;
 		private Song song;
 
@@ -51,9 +52,9 @@ namespace Dag_og_Natt
             Global.offset = 0;
             Global.day = true;
 			
-            gate = new Movable(new Vector2(700, 550), false, true);
-            plant = new Movable(new Vector2(300, 550), true, true);
-
+            gate = new Movable(new Vector2(1000, 550), false, true);
+            plant = new Movable(new Vector2(700, 550), false, true);
+	wall = 
 
 
             collidables = new List<Movable>();
