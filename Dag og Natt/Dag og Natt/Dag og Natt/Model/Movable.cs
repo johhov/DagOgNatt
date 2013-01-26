@@ -19,7 +19,7 @@ namespace Dag_og_Natt
 
 		protected void Update(Vector2 position, bool day)
 		{
-            if (!day && Global.offset < this.position)
+            if (!day /*&& Global.offset < this.position*/)
             {
                 passable = true;
             }
