@@ -9,6 +9,7 @@ namespace Dag_og_Natt
 		private int atEdge;
 		private int boundingBoxLeftEdge;
 		private int boundingBoxRightEdge;
+		private Vector2 moveTo;
 
 		public int AtEdge
 		{
@@ -31,12 +32,13 @@ namespace Dag_og_Natt
 			atEdge = 0;
 			boundingBoxLeftEdge = 270;
 			boundingBoxRightEdge = 760;
+			moveTo = position;
 		}
-		public void Move(Vector2 direction)
+		public void Update()
 		{
-			position += direction * speed;
+			position = moveTo;
 
-			if(position.X <= boundingBoxLeftEdge)
+			if (position.X <= boundingBoxLeftEdge)
 			{
 				atEdge = -1;
 				position.X = boundingBoxLeftEdge + 1;
@@ -51,8 +53,13 @@ namespace Dag_og_Natt
 				atEdge = 0;
 			}
 		}
+		public void Move(Vector2 direction)
+		{
+			moveTo = position + direction * speed;
+		}
 		public void Jump()
 		{
+
 		}
 	}
 }

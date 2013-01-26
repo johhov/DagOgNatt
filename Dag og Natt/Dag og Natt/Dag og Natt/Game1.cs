@@ -99,6 +99,7 @@ namespace Dag_og_Natt
 	        {
 	        	player.Move(new Vector2(1,0));
 	        }
+	    player.Update();
 
             paraLayerOne.Update(player);
 
