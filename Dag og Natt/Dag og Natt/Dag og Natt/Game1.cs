@@ -16,7 +16,7 @@ namespace Dag_og_Natt
 		private SpriteBatch spriteBatch;
 		private Input input;
 		private Parallax paraLayerOne;
-
+		private Movable gate;
 		private Texture2D testNightOverlay;
 
 		private bool day;
@@ -43,6 +43,8 @@ namespace Dag_og_Natt
 			input = new Input();
 			player = new Player();
 			paraLayerOne = new Parallax();
+			gate = new Movable(new Vector2(800, 550));
+
 
 			day = true;
 
@@ -60,6 +62,7 @@ namespace Dag_og_Natt
 			paraLayerOne.Texture = Content.Load<Texture2D>("Parallax\\TestWhite");
 			testNightOverlay = Content.Load<Texture2D>("TestNightOverlay");
 			player.Texture = Content.Load<Texture2D>("Player\\TestGray");
+			gate.Texture = Content.Load<Texture2D>("Gate");
 		}
 
 		/// <summary>
@@ -91,17 +94,17 @@ namespace Dag_og_Natt
 				day = !day;
 			}
 
-	        if (input.IsKeyPressed(Keys.Left))
-	        {
-	        	player.Move(new Vector2(-1,0)); 
-	        }
-	        if (input.IsKeyPressed(Keys.Right))
-	        {
-	        	player.Move(new Vector2(1,0));
-	        }
-	    player.Update();
+			if (input.IsKeyPressed(Keys.Left))
+			{
+				player.Move(new Vector2(-1,0)); 
+			}
+			if (input.IsKeyPressed(Keys.Right))
+			{
+				player.Move(new Vector2(1,0));
+			}
+			player.Update();
 
-            paraLayerOne.Update(player);
+			paraLayerOne.Update(player);
 
 			//Character
 
@@ -119,12 +122,14 @@ namespace Dag_og_Natt
 
 			paraLayerOne.Draw(spriteBatch);
 
+			player.Draw(spriteBatch);
+
+			gate.Draw(spriteBatch);
+
 			if (!day)
 			{
 				spriteBatch.Draw(testNightOverlay, new Vector2(0, 0), Color.White);
 			}
-
-		player.Draw(spriteBatch);
 
 			spriteBatch.End();
 			base.Draw(gameTime);
