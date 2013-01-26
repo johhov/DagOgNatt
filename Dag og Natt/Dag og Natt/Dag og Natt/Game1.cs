@@ -4,7 +4,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
-
 namespace Dag_og_Natt
 {
 	/// <summary>
@@ -22,20 +21,18 @@ namespace Dag_og_Natt
 		public static GameState gameState;
 		public int gameStateNumber;
 
-		
 		private const int MENUBUTTONOFFSET_X = 200;
 
 		private GraphicsDeviceManager graphics;
 		private SpriteBatch spriteBatch;
 		private Input input;
-		private List<Parallax> parallaxLayersSuburb;
+		private List<Parallax> parallaxLayers;
 		private Movable gate;
 		private Movable plant;
 		private NPC monster;
 		private Overlay pulse;
-	private Scoreboard score;
-	private Scoreboard numbOne;
-	
+		private Scoreboard score;
+		private Scoreboard numbOne;
 
 		private Texture2D testNightOverlay;
 		private Song song;
@@ -68,24 +65,23 @@ namespace Dag_og_Natt
 			//Game objects
 			input = new Input();
 			player = new Player();
-			
-			parallaxLayersSuburb = new List<Parallax>();
+
+			parallaxLayers = new List<Parallax>();
 			for (int i = 2; i >= 0; i--)
 			{
-				parallaxLayersSuburb.Add(new Parallax(1/*(float)(0.5+(0.5*i))*/));
+				parallaxLayers.Add(new Parallax(1/*(float)(0.5+(0.5*i))*/));
 			}
-				
 
 			Global.offset = 0;
 			Global.day = true;
-			
+
 			gate = new Movable(new Vector2(1000, 550), false, true);
 			plant = new Movable(new Vector2(700, 550), false, true);
-		monster = new NPC(new Vector2(1700, 550), true, false);
-		pulse = new Overlay(0, new Vector2(0, 0), new Vector2(0, 0), new Vector2(0, 0));
-	    score = new Scoreboard(new Vector2(0, 0), new Vector2(0, 0), new Vector2(0, 0));
-	    numbOne = new Scoreboard(new Vector2(5, 5), new Vector2(0, 0), new Vector2(0, 0));
-	    
+			monster = new NPC(new Vector2(1700, 550), true, false);
+			pulse = new Overlay(0, new Vector2(0, 0), new Vector2(0, 0), new Vector2(0, 0));
+			score = new Scoreboard(new Vector2(0, 0), new Vector2(0, 0), new Vector2(0, 0));
+			numbOne = new Scoreboard(new Vector2(5, 5), new Vector2(0, 0), new Vector2(0, 0));
+
 			collidables = new List<Movable>();
 			collidables.Add(gate);
 			collidables.Add(plant);
@@ -106,22 +102,24 @@ namespace Dag_og_Natt
 		{
 			// Create a new SpriteBatch, which can be used to draw textures.
 			spriteBatch = new SpriteBatch(GraphicsDevice);
-			parallaxLayersSuburb[0].TexturesDay = Content.Load<Texture2D>("Parallax\\Floor line");
-            parallaxLayersSuburb[0].TexturesDay = Content.Load<Texture2D>("Parallax\\City_excavator");
-			parallaxLayersSuburb[1].TexturesDay = Content.Load<Texture2D>("Parallax\\Forground 1");
-            parallaxLayersSuburb[1].TexturesDay = Content.Load<Texture2D>("Parallax\\City_road_first_row");
-			parallaxLayersSuburb[2].TexturesDay = Content.Load<Texture2D>("Parallax\\Background 2");
-            parallaxLayersSuburb[2].TexturesDay = Content.Load<Texture2D>("Parallax\\City_second_row");
-			
+			parallaxLayers[0].TexturesDay = Content.Load<Texture2D>("Parallax\\City_Background");
+			parallaxLayers[0].TexturesDay = Content.Load<Texture2D>("Parallax\\Background 2");
+
+            parallaxLayers[1].TexturesDay = Content.Load<Texture2D>("Parallax\\City_middleground");
+			parallaxLayers[1].TexturesDay = Content.Load<Texture2D>("Parallax\\Forground 1");
+
+			parallaxLayers[2].TexturesDay = Content.Load<Texture2D>("Parallax\\City_construction");
+            parallaxLayers[2].TexturesDay = Content.Load<Texture2D>("Parallax\\Floor line");
+
 			testNightOverlay = Content.Load<Texture2D>("TestNightOverlay");
 			player.Texture = Content.Load<Texture2D>("Player\\TestGray");
 			gate.TextureDay = Content.Load<Texture2D>("Gate");
 			plant.TextureDay = Content.Load<Texture2D>("Plant");
-		    monster.TextureDay = Content.Load<Texture2D>("Monster");
-		    pulse.TextureDay = Content.Load<Texture2D>("Hjertebank");
-	    score.TextureDay = Content.Load<Texture2D>("SolUI");
-	    numbOne.TextureDay = Content.Load<Texture2D>("numbers");
-	    song = Content.Load<Song>("Song\\Heartbeat");
+			monster.TextureDay = Content.Load<Texture2D>("Monster");
+			pulse.TextureDay = Content.Load<Texture2D>("Hjertebank");
+			score.TextureDay = Content.Load<Texture2D>("SolUI");
+			numbOne.TextureDay = Content.Load<Texture2D>("numbers");
+			song = Content.Load<Song>("Song\\Heartbeat");
 			MediaPlayer.IsRepeating = true;
 			MediaPlayer.Volume = 0.3f;
 			MediaPlayer.Play(song);
@@ -186,19 +184,19 @@ namespace Dag_og_Natt
 				}
 
 				plant.Update();
-		gate.Update();
-		plant.Update();
-		monster.Update();
+				gate.Update();
+				plant.Update();
+				monster.Update();
 				player.Update();
-		pulse.Update(gameTime);
-	    score.Update(gameTime);
-	    numbOne.Update(gameTime);
+				pulse.Update(gameTime);
+				score.Update(gameTime);
+				numbOne.Update(gameTime);
 
 				Global.offset += player.Speed * player.AtEdge;
 
-				for (int i = (parallaxLayersSuburb.Count-1); i >= 0; i--)
+				for (int i = (parallaxLayers.Count - 1); i >= 0; i--)
 				{
-					parallaxLayersSuburb[i].Update(player);
+					parallaxLayers[i].Update(player);
 				}
 
 				//Character
@@ -210,8 +208,6 @@ namespace Dag_og_Natt
 			base.Update(gameTime);
 		}
 
-
-
 		/// <summary>
 		/// This is called when the game should draw itself.
 		/// </summary>
@@ -221,11 +217,9 @@ namespace Dag_og_Natt
 			GraphicsDevice.Clear(Color.White);
 			spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);//punches graphics at .end and allows alpha
 
-           
-
 			if (gameState == GameState.Running)
 			{
-				foreach (Parallax layer in parallaxLayersSuburb)
+				foreach (Parallax layer in parallaxLayers)
 				{
 					layer.Draw(spriteBatch);
 				}
@@ -238,7 +232,7 @@ namespace Dag_og_Natt
 				}
 
 				player.Draw(spriteBatch);
-		monster.Draw(spriteBatch);
+				monster.Draw(spriteBatch);
 
 				if (!Global.day)
 				{
@@ -246,21 +240,20 @@ namespace Dag_og_Natt
 				}
 			}
 
-
-		pulse.Draw(spriteBatch);
-	    score.Draw(spriteBatch);
-	    numbOne.Drawfirst(spriteBatch);
-	    if (gameState == GameState.End)
-			{ 
+			pulse.Draw(spriteBatch);
+			score.Draw(spriteBatch);
+			numbOne.Drawfirst(spriteBatch);
+			if (gameState == GameState.End)
+			{
 				//Draw ending screen
 			}
-	    if (gameState == GameState.Menu)
-            {
-                foreach (Button button in menuButtons)
-                {
-                    button.Draw(spriteBatch);
-                }
-            }
+			if (gameState == GameState.Menu)
+			{
+				foreach (Button button in menuButtons)
+				{
+					button.Draw(spriteBatch);
+				}
+			}
 
 			spriteBatch.Draw(mouseTexture, mousePosition, new Color(255, 255, 255, 255));
 			spriteBatch.End();
@@ -277,9 +270,11 @@ namespace Dag_og_Natt
 				case "Start Game":
 					gameState = GameState.Running;
 					break;
+
 				case "Exit Game":
 					this.Exit();
 					break;
+
 				default:
 					break;
 			}
