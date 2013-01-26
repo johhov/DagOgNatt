@@ -115,6 +115,8 @@
       <Name>Forground 1</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Monster.png">
       <Name>Monster</Name>
       <Importer>TextureImporter</Importer>
