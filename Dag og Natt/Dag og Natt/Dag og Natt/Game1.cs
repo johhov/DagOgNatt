@@ -15,8 +15,8 @@ namespace Dag_og_Natt
 		private GraphicsDeviceManager graphics;
 		private SpriteBatch spriteBatch;
 		private Input input;
+		private Parallax paraLayerOne;
 
-		private Texture2D backgroundTestWhite;
 		private Texture2D testNightOverlay;
 
 		private bool day;
@@ -41,7 +41,8 @@ namespace Dag_og_Natt
 		protected override void Initialize()
 		{
 			input = new Input();
-		player = new Player();
+			player = new Player();
+			paraLayerOne = new Parallax();
 
 			day = true;
 
@@ -56,9 +57,9 @@ namespace Dag_og_Natt
 		{
 			// Create a new SpriteBatch, which can be used to draw textures.
 			spriteBatch = new SpriteBatch(GraphicsDevice);
-			backgroundTestWhite = Content.Load<Texture2D>("Parallax\\TestWhite");
+			paraLayerOne.Texture = Content.Load<Texture2D>("Parallax\\TestWhite");
 			testNightOverlay = Content.Load<Texture2D>("TestNightOverlay");
-		player.Texture = Content.Load<Texture2D>("Player\\TestGray");
+			player.Texture = Content.Load<Texture2D>("Player\\TestGray");
 		}
 
 		/// <summary>
@@ -90,15 +91,16 @@ namespace Dag_og_Natt
 				day = !day;
 			}
 
-		if (input.IsKeyPressed(Keys.Left))
-		{
-			player.Move(new Vector2(-1,0)); 
-		}
-		if (input.IsKeyPressed(Keys.Right))
-		{
-			player.Move(new Vector2(1,0));
-		}
+	        if (input.IsKeyPressed(Keys.Left))
+	        {
+	        	player.Move(new Vector2(-1,0)); 
+	        }
+	        if (input.IsKeyPressed(Keys.Right))
+	        {
+	        	player.Move(new Vector2(1,0));
+	        }
 
+            paraLayerOne.Update(player);
 
 			//Character
 
@@ -114,7 +116,7 @@ namespace Dag_og_Natt
 			GraphicsDevice.Clear(Color.CornflowerBlue);
 			spriteBatch.Begin();
 
-			spriteBatch.Draw(backgroundTestWhite, new Vector2(0, 0), Color.White);
+			paraLayerOne.Draw(spriteBatch);
 
 			if (!day)
 			{
