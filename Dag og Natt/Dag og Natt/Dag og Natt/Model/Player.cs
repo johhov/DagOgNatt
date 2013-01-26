@@ -27,7 +27,7 @@ namespace Dag_og_Natt
             position = new Vector2(490, 350);
             origin = new Vector2(0, 0);
             center = new Vector2(0, 0);
-            speed = 4;
+            speed = 6;
             atEdge = 0;
             boundingBoxLeftEdge = 270;
             boundingBoxRightEdge = 760;
