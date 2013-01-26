@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 
 namespace Dag_og_Natt
 {
@@ -21,6 +22,7 @@ namespace Dag_og_Natt
 		private Movable gate;
 		private Movable plant;
 		private Texture2D testNightOverlay;
+		private Song song;
 
         private List<Movable> collidables;
         
@@ -50,10 +52,13 @@ namespace Dag_og_Natt
 			gate = new Movable(new Vector2(700, 550));
 			plant = new Movable(new Vector2(300, 550));
 			Global.day = true;
+			
+
 
 
             collidables = new List<Movable>();
 			collidables.Add(gate);
+			collidables.Add(plant);
 
 			base.Initialize();//should be bottom	   
 		}
@@ -71,6 +76,10 @@ namespace Dag_og_Natt
 			player.Texture = Content.Load<Texture2D>("Player\\TestGray");
 			gate.Texture = Content.Load<Texture2D>("Gate");
 			plant.Texture = Content.Load<Texture2D>("Plant");
+			song = Content.Load<Song>("Song\\Heartbeat");
+			MediaPlayer.IsRepeating = true;
+			MediaPlayer.Volume = 0.3f;
+			MediaPlayer.Play(song);
 		}
 
 		/// <summary>
@@ -113,8 +122,8 @@ namespace Dag_og_Natt
 			}
 
 
-
-            gate.Update();
+			gate.Update();
+			plant.Update();
 			player.Update();
 
 			Global.offset += player.Speed * player.AtEdge;
@@ -125,6 +134,8 @@ namespace Dag_og_Natt
 
 			base.Update(gameTime);
 		}
+
+
 
 		/// <summary>
 		/// This is called when the game should draw itself.
