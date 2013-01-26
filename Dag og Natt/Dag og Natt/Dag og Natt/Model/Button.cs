@@ -1,0 +1,115 @@
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+
+namespace Dag_og_Natt
+{
+    class Button : ScreenObject
+    {
+        public enum MouseStatus
+        {
+            Normal,
+            Clicked,
+            Released
+        }
+
+        private MouseStatus state;
+        private Rectangle bounds;
+        private Input input;
+        private string type;
+        private Keys key;
+        public event EventHandler clicked;
+        public delegate void EventHandler(string n);
+
+        public Button(Vector2 position, string type, Keys key)
+        {
+            this.position = position;
+            bounds = new Rectangle(0, 0, 0, 0);
+            input = new Input();
+            this.type = type;
+            this.key = key;
+        }
+
+        public void Update()
+        {
+            input.Update();
+            state = MouseStatus.Normal;
+
+            if (bounds == new Rectangle(0, 0, 0, 0))
+            {
+               bounds = new Rectangle((int)Position.X, (int)Position.Y, Texture.Width, Texture.Height);
+            }
+
+            bool isMouseOver = bounds.Contains((int)input.Position.X, (int)input.Position.Y);
+
+            if (isMouseOver && !input.LeftClick)
+            {
+                state = MouseStatus.Released;
+            }
+            else if (!isMouseOver && !input.LeftClick)
+            {
+                state = MouseStatus.Normal;
+            }
+            else if (isMouseOver && input.LeftClick)
+            {
+                state = MouseStatus.Clicked;
+            }
+
+            if (input.NewLeftClick)
+            {
+                if (isMouseOver)
+                {
+                    state = MouseStatus.Clicked;
+                }
+            }
+
+            if (input.ReleaseLeftClick)
+            {
+                if (isMouseOver)
+                {
+                    state = MouseStatus.Released;
+                }
+            }
+
+            if (input.IsKeyPressed(key))
+            {
+                if (clicked != null)
+                {
+                    clicked(this.type);
+                }
+            }
+        }
+
+        new public void Draw(SpriteBatch spriteBatch)
+        {
+            switch (state)
+            {
+                case MouseStatus.Normal:
+                    spriteBatch.Draw(Texture, bounds, Color.White);
+                    break;
+
+                case MouseStatus.Released:
+                    spriteBatch.Draw(Texture, bounds, Color.DarkGray);
+                    break;
+
+                case MouseStatus.Clicked:
+                   if (input.currentMouseState.LeftButton != input.previousMouseState.LeftButton)
+                    {
+                        if (clicked != null)
+                        {
+                            clicked(this.type);
+                            state = MouseStatus.Normal;
+                        }
+                    }
+                    spriteBatch.Draw(Texture, bounds, Color.Red);
+                    break;
+
+                default:
+                    spriteBatch.Draw(Texture, bounds, Color.Black);
+                    break;
+            }
+        }
+    }
+}

@@ -12,13 +12,24 @@ namespace Dag_og_Natt
     /// </summary>
     public class Game1 : Microsoft.Xna.Framework.Game
     {
+        public enum GameState
+        {
+            Menu,
+            Running,
+            End
+        }
+
+        public static GameState gameState;
+        public int gameStateNumber;
+
         private const int WINDOWHEIGHT = 720;
         private const int WINDOWWIDTH = 1080;
+        private const int MENUBUTTONOFFSET_X = 200;
 
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
         private Input input;
-        private Parallax paraLayerOne;
+        private List<Parallax> parallaxLayers;
         private Movable gate;
         private Movable plant;
 	private NPC monster;
@@ -26,9 +37,11 @@ namespace Dag_og_Natt
 	
 
         private Texture2D testNightOverlay;
-		private Song song;
-
+        private Song song;
         private List<Movable> collidables;
+        private List<Button> menuButtons;
+        private Vector2 mousePosition;
+        private Texture2D mouseTexture;
 
         private Player player;
 
@@ -49,13 +62,22 @@ namespace Dag_og_Natt
         /// </summary>
         protected override void Initialize()
         {
+            gameState = GameState.Menu;
+
+            //Game objects
             input = new Input();
             player = new Player();
-            paraLayerOne = new Parallax();
+            
+            parallaxLayers = new List<Parallax>();
+            for (int i = 0; i < 3; i++)
+            {
+                parallaxLayers.Add(new Parallax(i+1));
+            }
+                
 
             Global.offset = 0;
             Global.day = true;
-			
+            
             gate = new Movable(new Vector2(1000, 550), false, true);
             plant = new Movable(new Vector2(700, 550), false, true);
 	    monster = new NPC(new Vector2(1700, 550), true, false);
@@ -64,7 +86,12 @@ namespace Dag_og_Natt
 
             collidables = new List<Movable>();
             collidables.Add(gate);
-			collidables.Add(plant);
+            collidables.Add(plant);
+
+            //Manu objects
+            menuButtons = new List<Button>();
+            menuButtons.Add(new Button(new Vector2(100, 100), "Start Game", Keys.Enter));
+            menuButtons.Add(new Button(new Vector2(100, 300), "Exit Game", Keys.Escape));
 
             base.Initialize();//should be bottom
         }
@@ -77,17 +104,30 @@ namespace Dag_og_Natt
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            paraLayerOne.Texture = Content.Load<Texture2D>("Parallax\\TestWhite");
+            parallaxLayers[0].Texture = Content.Load<Texture2D>("Parallax\\Floor line");
+            parallaxLayers[1].Texture = Content.Load<Texture2D>("Parallax\\Forground 1");
+            parallaxLayers[2].Texture = Content.Load<Texture2D>("Parallax\\Background 2");
+            
             testNightOverlay = Content.Load<Texture2D>("TestNightOverlay");
             player.Texture = Content.Load<Texture2D>("Player\\TestGray");
             gate.Texture = Content.Load<Texture2D>("Gate");
             plant.Texture = Content.Load<Texture2D>("Plant");
 	    monster.Texture = Content.Load<Texture2D>("Monster");
 	    pulse.Texture = Content.Load<Texture2D>("Hjertebank");
-			song = Content.Load<Song>("Song\\Heartbeat");
-			MediaPlayer.IsRepeating = true;
-			MediaPlayer.Volume = 0.3f;
-			MediaPlayer.Play(song);
+            song = Content.Load<Song>("Song\\Heartbeat");
+            MediaPlayer.IsRepeating = true;
+            MediaPlayer.Volume = 0.3f;
+            MediaPlayer.Play(song);
+
+            Mouse.WindowHandle = this.Window.Handle;
+            mouseTexture = Content.Load<Texture2D>("Mouse");
+
+            // Menu button events
+            foreach (Button button in menuButtons)
+            {
+                button.Texture = Content.Load<Texture2D>("Gate");
+                button.clicked += new Button.EventHandler(ButtonClicked);
+            }
         }
 
         /// <summary>
@@ -109,38 +149,54 @@ namespace Dag_og_Natt
             //Input
             input.Update();
 
-            if (input.IsKeyPressedOnce(Keys.Escape))
+            if (gameState == GameState.Menu)
             {
-                this.Exit();
+                foreach (Button button in menuButtons)
+                {
+                    button.Update();
+                }
             }
-
-            if (input.IsKeyPressedOnce(Keys.LeftControl))
+            else if (gameState == GameState.Running)
             {
-                Global.day = !Global.day;
-            }
+                if (input.IsKeyPressedOnce(Keys.Escape))
+                {
+                    gameState = GameState.Menu;
+                }
 
-            if (input.IsKeyPressed(Keys.Left))
-            {
-                player.Move(new Vector2(-1, 0), collidables);
-            }
+                if (input.IsKeyPressedOnce(Keys.LeftControl))
+                {
+                    Global.day = !Global.day;
+                }
 
-            if (input.IsKeyPressed(Keys.Right))
-            {
-                player.Move(new Vector2(1, 0), collidables);
-            }
+                if (input.IsKeyPressed(Keys.Left))
+                {
+                    player.Move(new Vector2(-1, 0), collidables);
+                }
 
-            plant.Update();
+                if (input.IsKeyPressed(Keys.Right))
+                {
+                    player.Move(new Vector2(1, 0), collidables);
+                }
+
+                plant.Update();
 	    gate.Update();
 	    plant.Update();
 	    monster.Update();
-            player.Update();
+                player.Update();
 	    pulse.Update(gameTime);
 
-            Global.offset += player.Speed * player.AtEdge;
+                Global.offset += player.Speed * player.AtEdge;
 
-            paraLayerOne.Update(player);
+                for (int i = (parallaxLayers.Count-1); i >= 0; i--)
+                {
+                    parallaxLayers[i].Update(player);
+                }
 
-            //Character
+                //Character
+            }
+
+            mousePosition.X = Mouse.GetState().X;
+            mousePosition.Y = Mouse.GetState().Y;
 
             base.Update(gameTime);
         }
@@ -153,30 +209,69 @@ namespace Dag_og_Natt
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.White);
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);//punches graphics at .end and allows alpha
 
-            paraLayerOne.Draw(spriteBatch);
-
-            gate.Draw(spriteBatch);
-
-            if (Global.day)
+            if (gameState == GameState.Menu)
             {
-                plant.Draw(spriteBatch);
+                foreach (Button button in menuButtons)
+                {
+                    button.Draw(spriteBatch);
+                }
             }
 
-            player.Draw(spriteBatch);
+            if (gameState == GameState.Running)
+            {
+                foreach (Parallax layer in parallaxLayers)
+                {
+                    layer.Draw(spriteBatch);
+                }
+
+                gate.Draw(spriteBatch);
+
+                if (Global.day)
+                {
+                    plant.Draw(spriteBatch);
+                }
+
+                player.Draw(spriteBatch);
 	    monster.Draw(spriteBatch);
 
-            if (!Global.day)
-            {
-                spriteBatch.Draw(testNightOverlay, new Vector2(0, 0), Color.White);
+                if (!Global.day)
+                {
+                    spriteBatch.Draw(testNightOverlay, new Vector2(0, 0), Color.White);
+                }
             }
 
+
 	    pulse.Draw(spriteBatch);
+            if (gameState == GameState.End)
+            { 
+                //Draw ending screen
+            }
+
+            spriteBatch.Draw(mouseTexture, mousePosition, new Color(255, 255, 255, 255));
 
             spriteBatch.End();
             base.Draw(gameTime);
+        }
+
+        /// <summary>
+        /// Is triggered by the user clicking on a button. The action string then tells it what to do.
+        /// </summary>
+        private void ButtonClicked(string actionType)
+        {
+            switch (actionType)
+            {
+                case "Start Game":
+                    gameState = GameState.Running;
+                    break;
+                case "Exit Game":
+                    this.Exit();
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

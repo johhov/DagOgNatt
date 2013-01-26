@@ -108,6 +108,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\Input.cs" />
+    <Compile Include="Model\Button.cs" />
     <Compile Include="Model\NPC.cs" />
     <Compile Include="Model\Global.cs" />
     <Compile Include="Model\Movable.cs" />
