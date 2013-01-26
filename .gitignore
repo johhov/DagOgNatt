@@ -13,7 +13,7 @@ TestResults
 *.cachefile
 *.suo
 *.sdf
-
+*.csproj
 # VC10 Debug folder #
 ######################
 ./Debug/
