@@ -26,8 +26,8 @@ namespace Dag_og_Natt
 
 		public void Drawfirst(SpriteBatch spriteBatch)
 		{
-			spriteBatch.Draw(Texture, position, new Rectangle((timeLeft / 10 * 20), 0, 20, 20), Color.White);
-			spriteBatch.Draw(Texture, new Vector2(position.X+20, position.Y), new Rectangle((timeLeft %10 * 20), 0, 20, 20), Color.White); 
+			spriteBatch.Draw(textureDay, position, new Rectangle((timeLeft / 10 * 20), 0, 20, 20), Color.White);
+			spriteBatch.Draw(textureDay, new Vector2(position.X+20, position.Y), new Rectangle((timeLeft %10 * 20), 0, 20, 20), Color.White); 
 		}
 	}
 }

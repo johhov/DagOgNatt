@@ -119,8 +119,8 @@ namespace Dag_og_Natt
 			plant.TextureDay = Content.Load<Texture2D>("Plant");
 		    monster.TextureDay = Content.Load<Texture2D>("Monster");
 		    pulse.TextureDay = Content.Load<Texture2D>("Hjertebank");
-	    score.Texture = Content.Load<Texture2D>("SolUI");
-	    numbOne.Texture = Content.Load<Texture2D>("numbers");
+	    score.TextureDay = Content.Load<Texture2D>("SolUI");
+	    numbOne.TextureDay = Content.Load<Texture2D>("numbers");
 	    song = Content.Load<Song>("Song\\Heartbeat");
 			MediaPlayer.IsRepeating = true;
 			MediaPlayer.Volume = 0.3f;
