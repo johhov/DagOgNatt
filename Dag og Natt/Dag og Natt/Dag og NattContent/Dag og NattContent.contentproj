@@ -90,6 +90,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <Compile Include="Mouse.png">
       <Name>Mouse</Name>
       <Importer>TextureImporter</Importer>
@@ -113,6 +114,10 @@
   <ItemGroup>
     <Compile Include="Parallax\Forground 1.png">
       <Name>Forground 1</Name>
+=======
+    <Compile Include="Monster.png">
+      <Name>Monster</Name>
+>>>>>>> d3b9b1e1fd416a22d8e33fdbc0463d819a869beb
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

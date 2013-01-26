@@ -37,6 +37,14 @@ namespace Dag_og_Natt
         new public void Update()
         {
             position = moveTo;
+	    if (Global.day)
+	    {
+		    speed = 4;
+	    }
+	    else
+	    {
+		    speed = 2;
+	    }
 
             if (position.X <= boundingBoxLeftEdge)
             {
