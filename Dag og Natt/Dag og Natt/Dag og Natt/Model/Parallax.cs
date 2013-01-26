@@ -7,9 +7,9 @@ namespace Dag_og_Natt
     {
         public void Update(Player player)
         {
-            if (player.atEdge)
+            if (player.AtEdge != 0)
             {
-                position += player.speed;
+                position += new Vector2(player.Speed*player.AtEdge,0);
             }
         }
     }
