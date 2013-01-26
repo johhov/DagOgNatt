@@ -22,9 +22,9 @@ namespace Dag_og_Natt
 		private Movable plant;
 		private Texture2D testNightOverlay;
 
-        private List<Movable> collidables;
-        
-	    private Player player;
+		private List<Movable> collidables;
+		
+		private Player player;
 
 		public Game1()
 		{
@@ -46,13 +46,14 @@ namespace Dag_og_Natt
 			input = new Input();
 			player = new Player();
 			paraLayerOne = new Parallax();
+
 			Global.offset = 0;
-			gate = new Movable(new Vector2(700, 550));
-			plant = new Movable(new Vector2(300, 550));
 			Global.day = true;
+            
+            gate = new Movable(new Vector2(700, 550), false, true);
+            plant = new Movable(new Vector2(300, 550), true, true);
 
-
-            collidables = new List<Movable>();
+			collidables = new List<Movable>();
 			collidables.Add(gate);
 
 			base.Initialize();//should be bottom	   
@@ -99,7 +100,7 @@ namespace Dag_og_Natt
 
 			if (input.IsKeyPressedOnce(Keys.LeftControl))
 			{
-                Global.day = !Global.day;
+				Global.day = !Global.day;
 			}
 
 			if (input.IsKeyPressed(Keys.Left))
@@ -113,8 +114,8 @@ namespace Dag_og_Natt
 			}
 
 
-
-            gate.Update();
+            plant.Update();
+			gate.Update();
 			player.Update();
 
 			Global.offset += player.Speed * player.AtEdge;
@@ -144,9 +145,9 @@ namespace Dag_og_Natt
 				plant.Draw(spriteBatch);
 			}
 
-            player.Draw(spriteBatch);
+			player.Draw(spriteBatch);
 
-            if (!Global.day)
+			if (!Global.day)
 			{
 				spriteBatch.Draw(testNightOverlay, new Vector2(0, 0), Color.White);
 			}

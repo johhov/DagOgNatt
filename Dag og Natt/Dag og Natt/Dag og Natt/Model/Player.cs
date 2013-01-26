@@ -36,7 +36,8 @@ namespace Dag_og_Natt
 			boundingBoxRightEdge = 760;
             moveTo = position;
 		}
-		public void Update()
+
+		new public void Update()
 		{
 			position = moveTo;
 
@@ -66,7 +67,7 @@ namespace Dag_og_Natt
             {
                 if (!collidable.Passable)
                 {
-                    if (collidable.Position.X < moveTo.X)
+                    if (collidable.Position.X < moveTo.X && moveTo.X < (collidable.Position.X + collidable.Texture.Width))
                     {
                         moveTo = position;
                     }
