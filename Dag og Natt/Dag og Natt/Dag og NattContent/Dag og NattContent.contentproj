@@ -42,6 +42,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Parallax\Background 2.png">
+      <Name>Background 2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Parallax\Floor line.png">
+      <Name>Floor line</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Parallax\Forground 1.png">
+      <Name>Forground 1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
     <Compile Include="Parallax\TestBlack.png">
       <Name>TestBlack</Name>
       <Importer>TextureImporter</Importer>
@@ -95,26 +110,6 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Parallax\Background 2.png">
-      <Name>Background 2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Parallax\Floor line.png">
-      <Name>Floor line</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Parallax\Forground 1.png">
-      <Name>Forground 1</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Monster.png">
