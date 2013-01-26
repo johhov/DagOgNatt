@@ -10,17 +10,15 @@ namespace Dag_og_Natt
 		
 		public Player()
 		{
-			position = new Vector2(550, 600);
+			position = new Vector2(550, 550);
 			origin = new Vector2(0, 0);
 			center = new Vector2(0, 0);
+			speed = 4;
+			atEdge = 0;
 		}
-		public void MoveLeft()
+		public void Move(Vector2 direction)
 		{
-			move(new Vector2(-1, 0));
-		}
-		public void MoveRight()
-		{
-			move(new Vector2(1, 0));
+			position += direction * speed;
 		}
 		public void Jump()
 		{

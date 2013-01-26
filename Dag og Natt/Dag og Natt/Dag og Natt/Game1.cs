@@ -41,13 +41,11 @@ namespace Dag_og_Natt
         protected override void Initialize()
         {
             input = new Input();
+	    player = new Player();
 
             day = true;
 
-            base.Initialize();
-
-	    player = new Player();
-	   
+            base.Initialize();//should be bottom	   
         }
 
         /// <summary>
@@ -60,7 +58,7 @@ namespace Dag_og_Natt
             spriteBatch = new SpriteBatch(GraphicsDevice);
             backgroundTestWhite = Content.Load<Texture2D>("Parallax\\TestWhite");
             testNightOverlay = Content.Load<Texture2D>("TestNightOverlay");
-	    player.texture = Content.Load<Texture2D>("Player\\TestGray");
+	    player.Texture = Content.Load<Texture2D>("Player\\TestGray");
         }
 
         /// <summary>
@@ -94,11 +92,11 @@ namespace Dag_og_Natt
 
 	    if (input.IsKeyPressed(Keys.Left))
 	    {
-		    player.MoveLeft(); 
+		    player.Move(new Vector2(-1,0)); 
 	    }
 	    if (input.IsKeyPressed(Keys.Right))
 	    {
-		    player.MoveRight();
+		    player.Move(new Vector2(1,0));
 	    }
 
 

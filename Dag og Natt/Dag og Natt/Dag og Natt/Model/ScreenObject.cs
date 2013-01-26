@@ -8,7 +8,9 @@ namespace Dag_og_Natt
 		protected Vector2 position;
 		protected Vector2 origin;
 		protected Vector2 center;
-		public Texture2D texture
+		protected Texture2D texture;
+
+		public Texture2D Texture
 		{
 			get { return texture; }
 			set {this.texture = value;}
@@ -16,7 +18,7 @@ namespace Dag_og_Natt
 
 		public void Draw(SpriteBatch spriteBatch)
 		{
-			spriteBatch.Draw(texture, position, Color.White);
+			spriteBatch.Draw(Texture, position, Color.White);
 		}
 
 	}
