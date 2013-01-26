@@ -42,11 +42,13 @@ namespace Dag_og_Natt
 			{
 				atEdge = -1;
 				position.X = boundingBoxLeftEdge + 1;
+				moveTo.X = position.X;
 			}
 			else if (position.X >= boundingBoxRightEdge)
 			{
 				atEdge = 1;
 				position.X = boundingBoxRightEdge - 1;
+				moveTo.X = position.X;
 			}
 			else
 			{
