@@ -1,14 +1,13 @@
-﻿namespace Dag_og_Natt
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+
+namespace Dag_og_Natt
 {
-    internal class Movable : ScreenObject
-    {
-	    public void move(int moveInX, int moveInY)
-	    {
-		    positionX += moveInX;
-		    positionY += moveInY;
-	    }
-
-
-
-    }
+	internal class Movable : ScreenObject
+	{
+		protected void move(Vector2 position)
+		{
+			this.position += position;
+		}
+	}
 }
