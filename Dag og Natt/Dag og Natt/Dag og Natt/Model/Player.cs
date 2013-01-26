@@ -8,17 +8,17 @@ namespace Dag_og_Natt
 		private int speed;
 		private int atEdge;
 
-        public int AtEdge
-        {
-            get { return atEdge; }
-            set { atEdge = value; }
-        }
+		public int AtEdge
+		{
+			get { return atEdge; }
+			set { atEdge = value; }
+		}
 
-        public int Speed
-        {
-            get { return speed; }
-            set { speed = value; }
-        }
+		public int Speed
+		{
+			get { return speed; }
+			set { speed = value; }
+		}
 
 		public Player()
 		{
