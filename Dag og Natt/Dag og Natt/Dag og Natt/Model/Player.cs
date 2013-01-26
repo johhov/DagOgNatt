@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+
 
 namespace Dag_og_Natt
 {
@@ -7,8 +9,8 @@ namespace Dag_og_Natt
     {
         private int speed;
         private int atEdge;
-        private int boundingBoxLeftEdge;
-        private int boundingBoxRightEdge;
+        public int boundingBoxLeftEdge;
+        public int boundingBoxRightEdge;
 
         public int AtEdge
         {
@@ -22,34 +24,43 @@ namespace Dag_og_Natt
             set { speed = value; }
         }
 
+        new public Texture2D Texture
+        {
+            get { return textureDay; }
+            set { 
+                this.textureDay = value;
+                boundingBoxRightEdge = 810 - textureDay.Width;
+            }
+        }
+
         public Player()
         {
             position = new Vector2(490, 350);
             origin = new Vector2(0, 0);
             center = new Vector2(0, 0);
-            speed = 6;
+            speed = 4;
             atEdge = 0;
             boundingBoxLeftEdge = 270;
-            boundingBoxRightEdge = 760;
+            boundingBoxRightEdge = 810;
             moveTo = position;
         }
 
         new public void Update()
         {
             position = moveTo;
-	    if (Global.day)
-	    {
-		    speed = 4;
-	    }
-	    else
-	    {
-		    speed = 2;
-	    }
+	        if (Global.day)
+	        {
+		        speed = 4;
+	        }
+	        else
+	        {
+		        speed = 2;
+	        }
 
             if (position.X <= boundingBoxLeftEdge)
             {
                 atEdge = -1;
-                position.X = boundingBoxLeftEdge + 1;
+                position.X = boundingBoxLeftEdge + speed;
                 moveTo.X = position.X;
 
                 if (Global.offset <= 0)
@@ -60,7 +71,7 @@ namespace Dag_og_Natt
             else if (position.X >= boundingBoxRightEdge)
             {
                 atEdge = 1;
-                position.X = boundingBoxRightEdge - 1;
+                position.X = boundingBoxRightEdge - speed;
                 moveTo.X = position.X;
             }
             else
@@ -77,7 +88,7 @@ namespace Dag_og_Natt
             {
                 if (!collidable.Passable)
                 {
-                    if (collidable.Position.X <= (moveTo.X+Texture.Width) && moveTo.X <= (collidable.Position.X + collidable.Texture.Width))
+                    if (collidable.Position.X <= (moveTo.X+Texture.Width) && moveTo.X <= (collidable.Position.X + collidable.TextureDay.Width))
                     {
                         moveTo = position;
                     }
