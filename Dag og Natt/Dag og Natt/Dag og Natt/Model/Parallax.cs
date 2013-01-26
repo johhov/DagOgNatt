@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Dag_og_Natt
 {
@@ -14,6 +15,11 @@ namespace Dag_og_Natt
             {
                 position = new Vector2(-Global.offset, 0);
             }
+        }
+
+        new public void Draw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(Texture, position, Color.White); 
         }
     }
 }
