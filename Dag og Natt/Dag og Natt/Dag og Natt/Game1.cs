@@ -34,7 +34,7 @@ namespace Dag_og_Natt
 		private Scoreboard score;
 		private Scoreboard numbOne;
 
-		private Texture2D testNightOverlay;
+		private Texture2D nightOverlay;
 		private Song heartbeat;
 		private Song dayOne;
 		private Song nightOne;
@@ -69,16 +69,16 @@ namespace Dag_og_Natt
 			player = new Player();
 
 			parallaxLayers = new List<Parallax>();
-			for (int i = 2; i >= 0; i--)
+			for (int i = 0; i < 3; i++)
 			{
-				parallaxLayers.Add(new Parallax(1/*(float)(0.5+(0.5*i))*/));
+				parallaxLayers.Add(new Parallax(1,i));
 			}
 
 			Global.offset = 0;
 			Global.day = true;
 
 			gate = new Movable(new Vector2(1000, 550), false, true);
-			plant = new Movable(new Vector2(700, 550), false, true);
+			plant = new Movable(new Vector2(2340, 550), false, true);
 			monster = new NPC(new Vector2(1700, 550), true, false);
 			pulse = new Overlay(0, new Vector2(0, 0), new Vector2(0, 0), new Vector2(0, 0));
 			score = new Scoreboard(new Vector2(0, 0), new Vector2(0, 0), new Vector2(0, 0));
@@ -113,7 +113,7 @@ namespace Dag_og_Natt
 			parallaxLayers[2].TexturesDay = Content.Load<Texture2D>("Parallax\\City_construction");
             parallaxLayers[2].TexturesDay = Content.Load<Texture2D>("Parallax\\Floor line");
 
-			testNightOverlay = Content.Load<Texture2D>("TestNightOverlay");
+			nightOverlay = Content.Load<Texture2D>("Parallax\\Night_layer");
 			player.Texture = Content.Load<Texture2D>("Player\\TestGray");
 			player.TextureDie = Content.Load<Texture2D>("Player\\deathAnimation");
 			gate.TextureDay = Content.Load<Texture2D>("Gate");
@@ -242,18 +242,17 @@ namespace Dag_og_Natt
 
 			if (gameState == GameState.Running)
 			{
-				foreach (Parallax layer in parallaxLayers)
-				{
-					layer.Draw(spriteBatch);
-				}
+                if (Global.day)
+                {
+                    plant.Draw(spriteBatch);
+                }
+
+                for (int i = 0; i <= parallaxLayers.Count-1; i++ )
+                {
+                    parallaxLayers[i].Draw(spriteBatch);
+                }
 
 				gate.Draw(spriteBatch);
-
-				if (Global.day)
-				{
-					plant.Draw(spriteBatch);
-				}
-
 				player.Draw(spriteBatch);
 				monster.Draw(spriteBatch);
 		pulse.Draw(spriteBatch);
@@ -262,7 +261,7 @@ namespace Dag_og_Natt
 
 				if (!Global.day)
 				{
-					spriteBatch.Draw(testNightOverlay, new Vector2(0, 0), Color.White);
+					spriteBatch.Draw(nightOverlay, new Vector2(0, 0), Color.White);
 				}
 			}
 
