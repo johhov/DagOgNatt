@@ -43,7 +43,7 @@ namespace Dag_og_Natt
 			input = new Input();
 			player = new Player();
 			paraLayerOne = new Parallax();
-
+			Global.offset = 0;
 			day = true;
 
 			base.Initialize();//should be bottom	   

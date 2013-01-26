@@ -2,5 +2,6 @@
 {
     internal class Global
     {
+	    public static int offset;
     }
 }

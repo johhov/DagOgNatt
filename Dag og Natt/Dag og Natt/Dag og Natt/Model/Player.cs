@@ -25,7 +25,7 @@ namespace Dag_og_Natt
 
 		public Player()
 		{
-			position = new Vector2(490, 550);
+			position = new Vector2(490, 350);
 			origin = new Vector2(0, 0);
 			center = new Vector2(0, 0);
 			speed = 4;
@@ -58,10 +58,6 @@ namespace Dag_og_Natt
 		public void Move(Vector2 direction)
 		{
 			moveTo = position + direction * speed;
-		}
-		public void Jump()
-		{
-
 		}
 	}
 }
