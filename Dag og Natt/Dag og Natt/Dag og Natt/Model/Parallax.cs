@@ -1,6 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -8,13 +6,12 @@ namespace Dag_og_Natt
 {
     internal class Parallax : Movable
     {
-        float speed;
-        int playerBoundingBoxLeft;
-        int playerBoundingBoxRight;
+        private float speed;
+        private int playerBoundingBoxLeft;
+        private int playerBoundingBoxRight;
 
         private List<Texture2D> texturesDay;
         private List<Texture2D> texturesNight;
-
 
         public Texture2D TexturesDay
         {
@@ -25,7 +22,6 @@ namespace Dag_og_Natt
         {
             set { this.texturesNight.Add(value); }
         }
-
 
         public Parallax(float speed)
         {
@@ -50,14 +46,13 @@ namespace Dag_og_Natt
         {
             if (position.X + texturesDay[0].Width < Global.WINDOWWIDTH)
             {
-                spriteBatch.Draw(texturesDay[0], new Vector2(position.X + texturesDay[0].Width,0), Color.White);
+                spriteBatch.Draw(texturesDay[0], new Vector2(position.X + texturesDay[0].Width, 0), Color.White);
                 spriteBatch.Draw(texturesDay[1], position, Color.White);
             }
             else
             {
                 spriteBatch.Draw(texturesDay[1], position, Color.White);
             }
-            
         }
     }
 }

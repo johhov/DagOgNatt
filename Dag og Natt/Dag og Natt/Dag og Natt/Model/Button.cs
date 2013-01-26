@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 namespace Dag_og_Natt
 {
-    class Button : ScreenObject
+    internal class Button : ScreenObject
     {
         public enum MouseStatus
         {
@@ -20,7 +18,9 @@ namespace Dag_og_Natt
         private Input input;
         private string type;
         private Keys key;
+
         public event EventHandler clicked;
+
         public delegate void EventHandler(string n);
 
         public Button(Vector2 position, string type, Keys key)
@@ -39,7 +39,7 @@ namespace Dag_og_Natt
 
             if (bounds == new Rectangle(0, 0, 0, 0))
             {
-               bounds = new Rectangle((int)Position.X, (int)Position.Y, TextureDay.Width, TextureDay.Height);
+                bounds = new Rectangle((int)Position.X, (int)Position.Y, TextureDay.Width, TextureDay.Height);
             }
 
             bool isMouseOver = bounds.Contains((int)input.Position.X, (int)input.Position.Y);
@@ -95,7 +95,7 @@ namespace Dag_og_Natt
                     break;
 
                 case MouseStatus.Clicked:
-                   if (input.currentMouseState.LeftButton != input.previousMouseState.LeftButton)
+                    if (input.currentMouseState.LeftButton != input.previousMouseState.LeftButton)
                     {
                         if (clicked != null)
                         {

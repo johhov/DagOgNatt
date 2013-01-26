@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-
 namespace Dag_og_Natt
 {
     internal class Player : Movable
@@ -27,7 +26,8 @@ namespace Dag_og_Natt
         new public Texture2D Texture
         {
             get { return textureDay; }
-            set { 
+            set
+            {
                 this.textureDay = value;
                 boundingBoxRightEdge = 810 - textureDay.Width;
             }
@@ -48,14 +48,14 @@ namespace Dag_og_Natt
         new public void Update()
         {
             position = moveTo;
-	        if (Global.day)
-	        {
-		        speed = 4;
-	        }
-	        else
-	        {
-		        speed = 2;
-	        }
+            if (Global.day)
+            {
+                speed = 4;
+            }
+            else
+            {
+                speed = 2;
+            }
 
             if (position.X <= boundingBoxLeftEdge)
             {
@@ -88,7 +88,7 @@ namespace Dag_og_Natt
             {
                 if (!collidable.Passable)
                 {
-                    if (collidable.Position.X <= (moveTo.X+Texture.Width) && moveTo.X <= (collidable.Position.X + collidable.TextureDay.Width))
+                    if (collidable.Position.X <= (moveTo.X + Texture.Width) && moveTo.X <= (collidable.Position.X + collidable.TextureDay.Width))
                     {
                         moveTo = position;
                     }

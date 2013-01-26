@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 namespace Dag_og_Natt
@@ -10,6 +9,7 @@ namespace Dag_og_Natt
         /// Handles the states of the mouse and keyboard.
         /// </summary>
         public KeyboardState previousKeyState;
+
         public KeyboardState currentKeyState;
 
         public MouseState previousMouseState;
@@ -91,7 +91,6 @@ namespace Dag_og_Natt
         {
             get { return !LeftClick && !ReleaseLeftClick && !RightClick && !ReleaseRightClick; }
         }
-
 
         //Keyboard========================================================================
 
