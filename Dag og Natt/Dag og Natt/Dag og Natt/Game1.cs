@@ -38,7 +38,8 @@ namespace Dag_og_Natt
 	
 
 		private Texture2D testNightOverlay;
-		private Song song;
+		private Song heartbeat;
+		private Song dayOne;
 		private List<Movable> collidables;
 		private List<Button> menuButtons;
 		private Vector2 mousePosition;
@@ -121,10 +122,12 @@ namespace Dag_og_Natt
 		    pulse.TextureDay = Content.Load<Texture2D>("Hjertebank");
 	    score.TextureDay = Content.Load<Texture2D>("SolUI");
 	    numbOne.TextureDay = Content.Load<Texture2D>("numbers");
-	    song = Content.Load<Song>("Song\\Heartbeat");
+	    heartbeat = Content.Load<Song>("Song\\Heartbeat");
+	//	dayOne = Content.Load<Song>("Song\\
 			MediaPlayer.IsRepeating = true;
 			MediaPlayer.Volume = 0.3f;
-			MediaPlayer.Play(song);
+			MediaPlayer.Play(heartbeat);
+	
 
 			Mouse.WindowHandle = this.Window.Handle;
 			mouseTexture = Content.Load<Texture2D>("Mouse");
@@ -239,6 +242,9 @@ namespace Dag_og_Natt
 
 				player.Draw(spriteBatch);
 		monster.Draw(spriteBatch);
+		pulse.Draw(spriteBatch);
+		score.Draw(spriteBatch);
+		numbOne.Drawfirst(spriteBatch);
 
 				if (!Global.day)
 				{
@@ -247,9 +253,7 @@ namespace Dag_og_Natt
 			}
 
 
-		pulse.Draw(spriteBatch);
-	    score.Draw(spriteBatch);
-	    numbOne.Drawfirst(spriteBatch);
+		
 	    if (gameState == GameState.End)
 			{ 
 				//Draw ending screen
@@ -284,5 +288,6 @@ namespace Dag_og_Natt
 					break;
 			}
 		}
+
 	}
 }
