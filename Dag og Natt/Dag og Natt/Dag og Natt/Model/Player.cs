@@ -64,7 +64,7 @@ namespace Dag_og_Natt
             {
                 if (!collidable.Passable)
                 {
-                    if (collidable.Position.X < moveTo.X && moveTo.X < (collidable.Position.X + collidable.Texture.Width))
+                    if (collidable.Position.X <= (moveTo.X+Texture.Width) && moveTo.X <= (collidable.Position.X + collidable.Texture.Width))
                     {
                         moveTo = position;
                     }
