@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Dag_og_Natt
+﻿namespace Dag_og_Natt
 {
-    class Player : Movable
+    internal class Player : Movable
     {
 	    public void moveLeft()
 	    {
