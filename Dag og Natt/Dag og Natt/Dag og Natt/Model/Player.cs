@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Dag_og_Natt
@@ -9,7 +11,7 @@ namespace Dag_og_Natt
 		private int atEdge;
 		private int boundingBoxLeftEdge;
 		private int boundingBoxRightEdge;
-		private Vector2 moveTo;
+		
 
 		public int AtEdge
 		{
@@ -32,7 +34,7 @@ namespace Dag_og_Natt
 			atEdge = 0;
 			boundingBoxLeftEdge = 270;
 			boundingBoxRightEdge = 760;
-			moveTo = position;
+            moveTo = position;
 		}
 		public void Update()
 		{
@@ -55,9 +57,21 @@ namespace Dag_og_Natt
 				atEdge = 0;
 			}
 		}
-		public void Move(Vector2 direction)
+
+        public void Move(Vector2 direction, List<Movable> collidables)
 		{
 			moveTo = position + direction * speed;
+
+            foreach (Movable collidable in collidables)
+            {
+                if (!collidable.Passable)
+                {
+                    if (collidable.Position.X < moveTo.X)
+                    {
+                        moveTo = position;
+                    }
+                }
+            }
 		}
 	}
 }

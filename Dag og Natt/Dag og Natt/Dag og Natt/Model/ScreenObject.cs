@@ -10,6 +10,11 @@ namespace Dag_og_Natt
 		protected Vector2 center;
 		protected Texture2D texture;
 
+        public Vector2 Position
+        {
+            get { return position; }
+        }
+
 		public Texture2D Texture
 		{
 			get { return texture; }
