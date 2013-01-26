@@ -4,9 +4,9 @@ namespace Dag_og_Natt
 {
     internal class Movable : ScreenObject
     {
-        private bool passableAtDay = true;
-        private bool passableAtNight = true;
-        private bool passable = true;
+        protected bool passableAtDay = true;
+        protected bool passableAtNight = true;
+        protected bool passable = true;
         protected Vector2 moveTo;
 
         public bool PassableAtDay

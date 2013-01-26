@@ -20,6 +20,7 @@ namespace Dag_og_Natt
         private Parallax paraLayerOne;
         private Movable gate;
         private Movable plant;
+	private NPC monster;
 
         private Texture2D testNightOverlay;
 		private Song song;
@@ -54,8 +55,8 @@ namespace Dag_og_Natt
 			
             gate = new Movable(new Vector2(1000, 550), false, true);
             plant = new Movable(new Vector2(700, 550), false, true);
-	wall = 
-
+	    monster = new NPC(new Vector2(1700, 550), true, false);
+	
 
             collidables = new List<Movable>();
             collidables.Add(gate);
@@ -77,6 +78,7 @@ namespace Dag_og_Natt
             player.Texture = Content.Load<Texture2D>("Player\\TestGray");
             gate.Texture = Content.Load<Texture2D>("Gate");
             plant.Texture = Content.Load<Texture2D>("Plant");
+	    monster.Texture = Content.Load<Texture2D>("Monster");
 			song = Content.Load<Song>("Song\\Heartbeat");
 			MediaPlayer.IsRepeating = true;
 			MediaPlayer.Volume = 0.3f;
@@ -123,8 +125,9 @@ namespace Dag_og_Natt
             }
 
             plant.Update();
-			gate.Update();
-			plant.Update();
+	    gate.Update();
+	    plant.Update();
+	    monster.Update();
             player.Update();
 
             Global.offset += player.Speed * player.AtEdge;
@@ -157,6 +160,7 @@ namespace Dag_og_Natt
             }
 
             player.Draw(spriteBatch);
+	    monster.Draw(spriteBatch);
 
             if (!Global.day)
             {
