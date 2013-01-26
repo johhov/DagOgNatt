@@ -115,6 +115,7 @@
     <Compile Include="Model\Overlay.cs" />
     <Compile Include="Model\Parallax.cs" />
     <Compile Include="Model\Player.cs" />
+    <Compile Include="Model\Scoreboard.cs" />
     <Compile Include="Model\ScreenObject.cs" />
     <Compile Include="Model\Sound.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -124,6 +125,7 @@
   <ItemGroup>
     <Content Include="Game.ico" />
     <Content Include="GameThumbnail.png" />
+    <Content Include="numbers.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dag og NattContent\Dag og NattContent.contentproj">

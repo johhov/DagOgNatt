@@ -34,6 +34,8 @@ namespace Dag_og_Natt
         private Movable plant;
 	private NPC monster;
 	private Overlay pulse;
+	private Scoreboard score;
+	private Scoreboard numbOne;
 	
 
         private Texture2D testNightOverlay;
@@ -82,8 +84,9 @@ namespace Dag_og_Natt
             plant = new Movable(new Vector2(700, 550), false, true);
 	    monster = new NPC(new Vector2(1700, 550), true, false);
 	    pulse = new Overlay(0, new Vector2(0, 0), new Vector2(0, 0), new Vector2(0, 0));
-	
-
+	    score = new Scoreboard(new Vector2(0, 0), new Vector2(0, 0), new Vector2(0, 0));
+	    numbOne = new Scoreboard(new Vector2(5, 5), new Vector2(0, 0), new Vector2(0, 0));
+	    
             collidables = new List<Movable>();
             collidables.Add(gate);
             collidables.Add(plant);
@@ -114,7 +117,9 @@ namespace Dag_og_Natt
             plant.Texture = Content.Load<Texture2D>("Plant");
 	    monster.Texture = Content.Load<Texture2D>("Monster");
 	    pulse.Texture = Content.Load<Texture2D>("Hjertebank");
-            song = Content.Load<Song>("Song\\Heartbeat");
+	    score.Texture = Content.Load<Texture2D>("SolUI");
+	    numbOne.Texture = Content.Load<Texture2D>("numbers");
+	    song = Content.Load<Song>("Song\\Heartbeat");
             MediaPlayer.IsRepeating = true;
             MediaPlayer.Volume = 0.3f;
             MediaPlayer.Play(song);
@@ -184,6 +189,8 @@ namespace Dag_og_Natt
 	    monster.Update();
                 player.Update();
 	    pulse.Update(gameTime);
+	    score.Update(gameTime);
+	    numbOne.Update(gameTime);
 
                 Global.offset += player.Speed * player.AtEdge;
 
@@ -212,13 +219,7 @@ namespace Dag_og_Natt
             GraphicsDevice.Clear(Color.White);
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);//punches graphics at .end and allows alpha
 
-            if (gameState == GameState.Menu)
-            {
-                foreach (Button button in menuButtons)
-                {
-                    button.Draw(spriteBatch);
-                }
-            }
+           
 
             if (gameState == GameState.Running)
             {
@@ -235,7 +236,7 @@ namespace Dag_og_Natt
                 }
 
                 player.Draw(spriteBatch);
-	    monster.Draw(spriteBatch);
+		monster.Draw(spriteBatch);
 
                 if (!Global.day)
                 {
@@ -245,14 +246,22 @@ namespace Dag_og_Natt
 
 
 	    pulse.Draw(spriteBatch);
-            if (gameState == GameState.End)
+	    score.Draw(spriteBatch);
+	    numbOne.Drawfirst(spriteBatch);
+	    if (gameState == GameState.End)
             { 
                 //Draw ending screen
             }
+	    if (gameState == GameState.Menu)
+            {
+                foreach (Button button in menuButtons)
+                {
+                    button.Draw(spriteBatch);
+                }
+            }
 
             spriteBatch.Draw(mouseTexture, mousePosition, new Color(255, 255, 255, 255));
-
-            spriteBatch.End();
+	    spriteBatch.End();
             base.Draw(gameTime);
         }
 

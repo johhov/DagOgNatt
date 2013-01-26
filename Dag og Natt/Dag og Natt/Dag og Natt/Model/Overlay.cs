@@ -27,16 +27,16 @@ namespace Dag_og_Natt
 
 		public void Update(GameTime gameTime)
 		{
-			if (gameTime.TotalGameTime.Seconds >= 5)
+			if (gameTime.TotalGameTime.Minutes >= 1)
 			{
-				alpha = 255 -(gameTime.TotalGameTime.Milliseconds %1000);
+				alpha = 0 + ((gameTime.TotalGameTime.Seconds*1000 + gameTime.TotalGameTime.Milliseconds) %1200-gameTime.TotalGameTime.Seconds *5)/3;
 			}
 
 		}
 		
 		public void Draw(SpriteBatch spriteBatch)
 		{
-			if (alpha > 0)
+			if (alpha > 0 && alpha < 120)
 			{
 				spriteBatch.Draw(texture, position, null, new Color(255, 255, 255, alpha));
 			}
