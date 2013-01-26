@@ -2,5 +2,13 @@
 {
     internal class Movable : ScreenObject
     {
+	    public void move(int moveInX, int moveInY)
+	    {
+		    positionX += moveInX;
+		    positionY += moveInY;
+	    }
+
+
+
     }
 }
