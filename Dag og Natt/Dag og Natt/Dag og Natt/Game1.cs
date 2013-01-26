@@ -37,6 +37,7 @@ namespace Dag_og_Natt
 		private Texture2D testNightOverlay;
 		private Song heartbeat;
 		private Song dayOne;
+		private Song nightOne;
 		private List<Movable> collidables;
 		private List<Button> menuButtons;
 		private Vector2 mousePosition;
@@ -114,6 +115,7 @@ namespace Dag_og_Natt
 
 			testNightOverlay = Content.Load<Texture2D>("TestNightOverlay");
 			player.Texture = Content.Load<Texture2D>("Player\\TestGray");
+			player.TextureDie = Content.Load<Texture2D>("Player\\deathAnimation");
 			gate.TextureDay = Content.Load<Texture2D>("Gate");
 			plant.TextureDay = Content.Load<Texture2D>("Plant");
 			monster.TextureDay = Content.Load<Texture2D>("Monster");
@@ -121,10 +123,19 @@ namespace Dag_og_Natt
 			score.TextureDay = Content.Load<Texture2D>("SolUI");
 			numbOne.TextureDay = Content.Load<Texture2D>("numbers");
 	    heartbeat = Content.Load<Song>("Song\\Heartbeat");
-	//	dayOne = Content.Load<Song>("Song\\
+	  //  dayOne = Content.Load<Song>("Song\\music.full.dawn");
+	// nightOne = Content.Load<Song>("Song\\music.full.dusk");
 			MediaPlayer.IsRepeating = true;
 			MediaPlayer.Volume = 0.3f;
 			MediaPlayer.Play(heartbeat);
+			if (Global.day)
+			{
+			//	MediaPlayer.Play(dayOne);
+			}
+			if (!Global.day)
+			{
+			//	MediaPlayer.Play(nightOne);
+			}
 	
 
 			Mouse.WindowHandle = this.Window.Handle;
@@ -174,6 +185,15 @@ namespace Dag_og_Natt
 				if (input.IsKeyPressedOnce(Keys.LeftControl))
 				{
 					Global.day = !Global.day;
+					if (Global.day)
+					{
+					//music.dusk.til.dawn
+					}
+					if (Global.day)
+					{
+					//music.dawn.til.dusk
+					}
+
 				}
 
 				if (input.IsKeyPressed(Keys.Left))

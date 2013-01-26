@@ -24,7 +24,7 @@ namespace Dag_og_Natt
 
         public void Update(GameTime gameTime)
         {
-            if (gameTime.TotalGameTime.Minutes >= 1)
+            if (gameTime.TotalGameTime.Minutes >= 99)
             {
                 alpha = 0 + ((gameTime.TotalGameTime.Seconds * 1000 + gameTime.TotalGameTime.Milliseconds) % 1200 - gameTime.TotalGameTime.Seconds * 5) / 3;
             }

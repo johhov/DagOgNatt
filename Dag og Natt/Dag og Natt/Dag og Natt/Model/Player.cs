@@ -10,6 +10,16 @@ namespace Dag_og_Natt
         private int atEdge;
         public int boundingBoxLeftEdge;
         public int boundingBoxRightEdge;
+	private Texture2D textureDie;
+
+	new public Texture2D TextureDie
+	{
+		get { return textureDie; }
+		set
+		{
+			this.textureDie = value;
+		}
+	}
 
         public int AtEdge
         {
@@ -29,7 +39,7 @@ namespace Dag_og_Natt
             set
             {
                 this.textureDay = value;
-                boundingBoxRightEdge = 810 - textureDay.Width;
+                boundingBoxRightEdge -= textureDay.Width;
             }
         }
 
@@ -40,8 +50,8 @@ namespace Dag_og_Natt
             center = new Vector2(0, 0);
             speed = 4;
             atEdge = 0;
-            boundingBoxLeftEdge = 270;
-            boundingBoxRightEdge = 810;
+	    boundingBoxLeftEdge = 390;
+            boundingBoxRightEdge = 690;
             moveTo = position;
         }
 
@@ -95,5 +105,10 @@ namespace Dag_og_Natt
                 }
             }
         }
+
+	public void Die()
+	{
+		
+	}
     }
 }
