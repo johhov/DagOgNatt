@@ -26,7 +26,7 @@ namespace Dag_og_Natt
         {
             if (gameTime.TotalGameTime.Minutes >= 99)
             {
-                alpha = 0 + ((gameTime.TotalGameTime.Seconds * 1000 + gameTime.TotalGameTime.Milliseconds) % 1200 - gameTime.TotalGameTime.Seconds * 5) / 3;
+                alpha = (int) ((gameTime.TotalGameTime.TotalMilliseconds) % 1200 - gameTime.TotalGameTime.Seconds * 5) / 3;
             }
         }
 

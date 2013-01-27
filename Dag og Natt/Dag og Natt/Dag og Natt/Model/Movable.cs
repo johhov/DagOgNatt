@@ -30,13 +30,14 @@ namespace Dag_og_Natt
         {
         }
 
-        public Movable(Vector2 position, bool passableAtDay, bool passableAtNight)
+        public Movable(Vector2 position, bool passableAtDay, bool passableAtNight, Rectangle currentAnimation)
         {
             this.position = position;
             this.startingPosition = position;
             moveTo = position;
             this.passableAtDay = passableAtDay;
             this.passableAtNight = passableAtNight;
+	    this.currentAnimation = currentAnimation;
         }
 
         public void Update()

@@ -6,5 +6,6 @@
         public static bool day;
         public const int WINDOWHEIGHT = 720;
         public const int WINDOWWIDTH = 1080;
+	public static double gamestart; //must remember to reset this son of a bitch upon restart
     }
 }

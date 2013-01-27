@@ -79,11 +79,12 @@ namespace Dag_og_Natt
 
 			Global.offset = 0;
 			Global.day = true;
+			Global.gamestart = 0;
 			startScreen = new ScreenObject();
 			startButton = new ScreenObject();
-			gate = new Movable(new Vector2(1000, 550), false, true);
-			plant = new Movable(new Vector2(2340, 550), false, true);
-			monster = new NPC(new Vector2(1700, 550), true, false);
+			gate = new Movable(new Vector2(1000, 550), false, true, new Rectangle(0,0,0,0));
+			plant = new Movable(new Vector2(2340, 550), false, true, new Rectangle(0, 0, 0, 0));
+			monster = new NPC(new Vector2(1700, 300), true, false, new Rectangle(0, 0, 327, 360));
 			pulse = new Overlay(0, new Vector2(0, 0), new Vector2(0, 0), new Vector2(0, 0));
 			score = new Scoreboard(new Vector2(0, 0), new Vector2(0, 0), new Vector2(0, 0));
 			numbOne = new Scoreboard(new Vector2(5, 5), new Vector2(0, 0), new Vector2(0, 0));
@@ -126,7 +127,7 @@ namespace Dag_og_Natt
 			player.TextureDie = Content.Load<Texture2D>("Player\\deathAnimation");
 			gate.TextureDay = Content.Load<Texture2D>("Gate");
 			plant.TextureDay = Content.Load<Texture2D>("Plant");
-			monster.TextureDay = Content.Load<Texture2D>("Monster");
+			monster.TextureDay = Content.Load<Texture2D>("UlvMonsterHode_Spritesheet5x5");
 			pulse.TextureDay = Content.Load<Texture2D>("Hjertebank");
 			score.TextureDay = Content.Load<Texture2D>("SolUI");
 			numbOne.TextureDay = Content.Load<Texture2D>("numbers");
@@ -147,7 +148,7 @@ namespace Dag_og_Natt
 	
 
 			Mouse.WindowHandle = this.Window.Handle;
-			mouseTexture = Content.Load<Texture2D>("Mouse");
+			mouseTexture = Content.Load<Texture2D>("Cursor_v03");
 
 			// Menu button events
 			foreach (Button button in menuButtons)
@@ -175,6 +176,10 @@ namespace Dag_og_Natt
 		{
 			//Input
 			input.Update();
+			if (Global.gamestart <1)
+			{
+				Global.gamestart= gameTime.TotalGameTime.TotalSeconds; 
+			}
 
 			if (gameState == GameState.Menu)
 			{
@@ -192,15 +197,7 @@ namespace Dag_og_Natt
 
 				if (input.IsKeyPressedOnce(Keys.LeftControl))
 				{
-					Global.day = !Global.day;
-					if (Global.day)
-					{
-					//music.dusk.til.dawn
-					}
-					if (Global.day)
-					{
-					//music.dawn.til.dusk
-					}
+					
 
 				}
 
@@ -214,6 +211,18 @@ namespace Dag_og_Natt
 					player.Move(new Vector2(1, 0), collidables);
 				}
 				if (input.IsKeyPressedOnce(Keys.Space))
+				{
+					Global.day = !Global.day;
+					if (Global.day)
+					{
+						//music.dusk.til.dawn
+					}
+					if (Global.day)
+					{
+						//music.dawn.til.dusk
+					}
+				}
+				if (input.IsKeyPressedOnce(Keys.R))
 				{
 					player.Die();
 				}
@@ -264,18 +273,18 @@ namespace Dag_og_Natt
                     parallaxLayers[i].Draw(spriteBatch);
                 }
 
-				gate.Draw(spriteBatch);
-				player.Draw(spriteBatch);
-				monster.Draw(spriteBatch);
+		gate.Draw(spriteBatch);
+		player.Draw(spriteBatch);
+		monster.Draw(spriteBatch);
 		pulse.Draw(spriteBatch);
 		score.Draw(spriteBatch);
 		numbOne.Drawfirst(spriteBatch);
 
-				if (!Global.day)
-				{
-					spriteBatch.Draw(nightOverlay, new Vector2(0, 0), Color.White);
-				}
-			}
+		if (!Global.day)
+		{
+			spriteBatch.Draw(nightOverlay, new Vector2(0, 0), Color.White);
+		}
+	}
 
 		
 			if (gameState == GameState.End)

@@ -148,6 +148,7 @@ namespace Dag_og_Natt
 					if (currentAnimation.Y >= textureDie.Height)
 					{
 						currentAnimation.Y = 0;
+						Restart();
 					}
 					
 				}
@@ -198,5 +199,17 @@ namespace Dag_og_Natt
 		currentAnimation.Width = 187;
 		currentAnimation.Height = 400;
 	}
+	    public void Restart()
+	{
+		facingLeft = false;
+		position = new Vector2(490, 350);
+		moveTo = new Vector2(490, 350);
+		dying = false;
+		Global.gamestart = 0;
+		Global.offset = 0;
+		Global.day = true;
+		currentAnimation = new Rectangle(0, 0, 300, 300);
+	 }
+    
     }
 }

@@ -6,6 +6,7 @@ namespace Dag_og_Natt
     internal class Scoreboard : ScreenObject
     {
         private int timeLeft;
+	private int timestart;
 
         public Scoreboard(Vector2 position, Vector2 origin, Vector2 center)
         {
@@ -17,7 +18,7 @@ namespace Dag_og_Natt
 
         public void Update(GameTime gameTime)
         {
-            timeLeft = (int)(90 - gameTime.TotalGameTime.TotalSeconds);//not actually working, should use game start time as a saved variable.
+            timeLeft = (int)(90 - gameTime.TotalGameTime.TotalSeconds+Global.gamestart);//not actually working, should use game start time as a saved variable.
         }
 
         public void Drawfirst(SpriteBatch spriteBatch)
