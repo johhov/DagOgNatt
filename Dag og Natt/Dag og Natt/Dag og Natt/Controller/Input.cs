@@ -9,7 +9,6 @@ namespace Dag_og_Natt
         /// Handles the states of the mouse and keyboard.
         /// </summary>
         public KeyboardState previousKeyState;
-
         public KeyboardState currentKeyState;
 
         public MouseState previousMouseState;
@@ -113,6 +112,11 @@ namespace Dag_og_Natt
         {
             previousKeyState = currentKeyState;
             currentKeyState = Keyboard.GetState();
+
+            previousMouseState = currentMouseState;
+            currentMouseState = Mouse.GetState();
+
+            Position = new Vector2(currentMouseState.X, currentMouseState.Y);
         }
     }
 }

@@ -21,8 +21,6 @@ namespace Dag_og_Natt
         public static GameState gameState;
         public int gameStateNumber;
 
-        private const int MENUBUTTONOFFSET_X = 200;
-
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
         private Input input;
@@ -34,7 +32,7 @@ namespace Dag_og_Natt
         private Scoreboard score;
         private Scoreboard numbOne;
         private ScreenObject startScreen;
-        private ScreenObject startButton;
+        //private ScreenObject startButton;
 
         private Texture2D nightOverlay;
         private Song heartbeat;
@@ -80,8 +78,8 @@ namespace Dag_og_Natt
             Global.day = true;
             Global.gamestart = 0;
             startScreen = new ScreenObject();
-            startButton = new ScreenObject();
-			gate = new Movable(new Vector2(7000, 550), false, true, new Rectangle(0,0,200,50));
+            //startButton = new ScreenObject();
+            gate = new Movable(new Vector2(7000, 550), false, true, new Rectangle(0, 0, 200, 50));
             plant = new Movable(new Vector2(2340, 550), false, true, new Rectangle(0, 0, 0, 0));
             monster = new NPC(new Vector2(1700, 300), true, false, new Rectangle(0, 0, 327, 360));
             pulse = new Overlay(0, new Vector2(0, 0), new Vector2(0, 0), new Vector2(0, 0));
@@ -92,10 +90,10 @@ namespace Dag_og_Natt
             collidables.Add(gate);
             collidables.Add(plant);
 
-            //Manu objects
+            //Menu objects
             menuButtons = new List<Button>();
-            menuButtons.Add(new Button(new Vector2(100, 100), "Start Game", Keys.Enter));
-            menuButtons.Add(new Button(new Vector2(100, 300), "Exit Game", Keys.Escape));
+            menuButtons.Add(new Button(new Vector2(0, 0), "Start Game", Keys.Enter));
+            menuButtons.Add(new Button(new Vector2(0, 0), "Exit Game", Keys.Escape));
 
             base.Initialize();//should be bottom
         }
@@ -108,6 +106,7 @@ namespace Dag_og_Natt
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+
             //parallaxLayers[0].TexturesDay = Content.Load<Texture2D>("Parallax\\City_Background");
             //parallaxLayers[0].TexturesDay = Content.Load<Texture2D>("Parallax\\Forest1_Background");
 
@@ -126,14 +125,14 @@ namespace Dag_og_Natt
             parallaxLayers[2].TexturesDay = Content.Load<Texture2D>("Parallax\\City_foreground");
             parallaxLayers[2].TexturesDay = Content.Load<Texture2D>("Parallax\\Forest1_foreground");
 
-
             nightOverlay = Content.Load<Texture2D>("Parallax\\Night_layer");
 
             //player.Texture = Content.Load<Texture2D>("Player\\Walk0000");
             player.Texture = Content.Load<Texture2D>("Player\\WalkLoopSheet_04");
 
-            startButton.TextureDay = Content.Load<Texture2D>("Start Game Btn Large size");
+            //startButton.TextureDay = Content.Load<Texture2D>("Start Game Btn Large size");
             startScreen.TextureDay = Content.Load<Texture2D>("StartScreen");
+
             player.TextureDie = Content.Load<Texture2D>("Player\\deathAnimation");
             gate.TextureDay = Content.Load<Texture2D>("Gate");
             plant.TextureDay = Content.Load<Texture2D>("Plant");
@@ -161,11 +160,11 @@ namespace Dag_og_Natt
             mouseTexture = Content.Load<Texture2D>("Cursor_v03");
 
             // Menu button events
-            foreach (Button button in menuButtons)
-            {
-                button.TextureDay = Content.Load<Texture2D>("Gate");
-                button.clicked += new Button.EventHandler(ButtonClicked);
-            }
+            menuButtons[0].TextureDay = Content.Load<Texture2D>("StartGameButtonSmallSize");
+            menuButtons[0].clicked += new Button.EventHandler(ButtonClicked);
+
+            menuButtons[1].TextureDay = Content.Load<Texture2D>("StartGameButtonSmallSize");
+            menuButtons[1].clicked += new Button.EventHandler(ButtonClicked);
         }
 
         /// <summary>
@@ -186,6 +185,7 @@ namespace Dag_og_Natt
         {
             //Input
             input.Update();
+
             if (Global.gamestart < 1)
             {
                 Global.gamestart = gameTime.TotalGameTime.TotalSeconds;
@@ -235,8 +235,6 @@ namespace Dag_og_Natt
                     player.Die();
                 }
 
-                
-
                 plant.Update();
                 gate.Update();
                 plant.Update();
@@ -251,7 +249,6 @@ namespace Dag_og_Natt
                 parallaxLayers[0].Update(player);
                 parallaxLayers[1].Update(player);
                 parallaxLayers[2].Update(player);
-                
 
                 //Character
             }
@@ -280,7 +277,6 @@ namespace Dag_og_Natt
 
                 parallaxLayers[0].Draw(spriteBatch);
                 parallaxLayers[1].Draw(spriteBatch);
-                
 
                 gate.Draw(spriteBatch);
                 player.Draw(spriteBatch);
@@ -305,11 +301,11 @@ namespace Dag_og_Natt
             {
                 startScreen.Draw(spriteBatch);
 
-                startButton.Draw(spriteBatch);
+                //startButton.Draw(spriteBatch);
 
-                //foreach (Button button in menuButtons)
+                foreach (Button button in menuButtons)
                 {
-                    //	button.Draw(spriteBatch);
+                    button.Draw(spriteBatch);
                 }
             }
 

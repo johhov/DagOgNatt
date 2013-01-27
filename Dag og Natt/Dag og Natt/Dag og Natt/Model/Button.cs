@@ -19,9 +19,22 @@ namespace Dag_og_Natt
         private string type;
         private Keys key;
 
+        private static int offset = 50;
+
         public event EventHandler clicked;
 
         public delegate void EventHandler(string n);
+
+        new public Texture2D TextureDay
+        {
+            get { return textureDay; }
+            set
+            {
+                this.textureDay = value;
+                offset += (int)(this.textureDay.Height*2);
+                this.position = new Vector2(Global.WINDOWWIDTH / 2 - textureDay.Width / 2, offset);
+            }
+        }
 
         public Button(Vector2 position, string type, Keys key)
         {
