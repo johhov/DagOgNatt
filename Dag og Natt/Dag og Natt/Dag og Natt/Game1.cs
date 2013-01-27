@@ -82,7 +82,7 @@ namespace Dag_og_Natt
 			Global.gamestart = 0;
 			startScreen = new ScreenObject();
 			startButton = new ScreenObject();
-			gate = new Movable(new Vector2(1000, 550), false, true, new Rectangle(0,0,0,0));
+			gate = new Movable(new Vector2(7000, 550), false, true, new Rectangle(0,0,200,50));
 			plant = new Movable(new Vector2(2340, 550), false, true, new Rectangle(0, 0, 0, 0));
 			monster = new NPC(new Vector2(1700, 300), true, false, new Rectangle(0, 0, 327, 360));
 			pulse = new Overlay(0, new Vector2(0, 0), new Vector2(0, 0), new Vector2(0, 0));
