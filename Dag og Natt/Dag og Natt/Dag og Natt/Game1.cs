@@ -33,6 +33,8 @@ namespace Dag_og_Natt
 		private Overlay pulse;
 		private Scoreboard score;
 		private Scoreboard numbOne;
+		private ScreenObject startScreen;
+		private ScreenObject startButton;
 
 		private Texture2D nightOverlay;
 		private Song heartbeat;
@@ -42,6 +44,7 @@ namespace Dag_og_Natt
 		private List<Button> menuButtons;
 		private Vector2 mousePosition;
 		private Texture2D mouseTexture;
+		
 
 		private Player player;
 
@@ -69,14 +72,15 @@ namespace Dag_og_Natt
 			player = new Player();
 
 			parallaxLayers = new List<Parallax>();
-			for (int i = 0; i < 3; i++)
+			for (int i = 0; i < 4; i++)
 			{
 				parallaxLayers.Add(new Parallax(1,i));
 			}
 
 			Global.offset = 0;
 			Global.day = true;
-
+			startScreen = new ScreenObject();
+			startButton = new ScreenObject();
 			gate = new Movable(new Vector2(1000, 550), false, true);
 			plant = new Movable(new Vector2(2340, 550), false, true);
 			monster = new NPC(new Vector2(1700, 550), true, false);
@@ -107,14 +111,18 @@ namespace Dag_og_Natt
 			parallaxLayers[0].TexturesDay = Content.Load<Texture2D>("Parallax\\City_Background");
 			parallaxLayers[0].TexturesDay = Content.Load<Texture2D>("Parallax\\Background 2");
 
-            parallaxLayers[1].TexturesDay = Content.Load<Texture2D>("Parallax\\City_middleground");
+			parallaxLayers[1].TexturesDay = Content.Load<Texture2D>("Parallax\\City_middleground");
 			parallaxLayers[1].TexturesDay = Content.Load<Texture2D>("Parallax\\Forground 1");
 
 			parallaxLayers[2].TexturesDay = Content.Load<Texture2D>("Parallax\\City_construction");
-            parallaxLayers[2].TexturesDay = Content.Load<Texture2D>("Parallax\\Floor line");
+			parallaxLayers[2].TexturesDay = Content.Load<Texture2D>("Parallax\\Floor line");
 
 			nightOverlay = Content.Load<Texture2D>("Parallax\\Night_layer");
-			player.Texture = Content.Load<Texture2D>("Player\\TestGray");
+			//player.Texture = Content.Load<Texture2D>("Player\\Walk0000");
+			player.Texture = Content.Load<Texture2D>("Player\\WalkLoopSheet_04");
+
+			startButton.TextureDay = Content.Load<Texture2D>("Start Game Btn Large size");
+			startScreen.TextureDay = Content.Load<Texture2D>("StartScreen");
 			player.TextureDie = Content.Load<Texture2D>("Player\\deathAnimation");
 			gate.TextureDay = Content.Load<Texture2D>("Gate");
 			plant.TextureDay = Content.Load<Texture2D>("Plant");
@@ -205,6 +213,10 @@ namespace Dag_og_Natt
 				{
 					player.Move(new Vector2(1, 0), collidables);
 				}
+				if (input.IsKeyPressedOnce(Keys.Space))
+				{
+					player.Die();
+				}
 
 				plant.Update();
 				gate.Update();
@@ -272,10 +284,14 @@ namespace Dag_og_Natt
 			}
 			if (gameState == GameState.Menu)
 			{
-				foreach (Button button in menuButtons)
+				startScreen.Draw(spriteBatch);
+
+				startButton.Draw(spriteBatch);
+				//foreach (Button button in menuButtons)
 				{
-					button.Draw(spriteBatch);
+				//	button.Draw(spriteBatch);
 				}
+				
 			}
 
 			spriteBatch.Draw(mouseTexture, mousePosition, new Color(255, 255, 255, 255));

@@ -76,14 +76,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Player\TestGray.png">
-      <Name>TestGray</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <ProcessorParameters_ColorKeyColor>255, 0, 255, 100</ProcessorParameters_ColorKeyColor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Gate.png">
       <Name>Gate</Name>
       <Importer>TextureImporter</Importer>
@@ -196,15 +188,29 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="deathAnimation.png">
+    <Compile Include="Player\deathAnimation.png">
       <Name>deathAnimation</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Player\deathAnimation.png">
-      <Name>deathAnimation</Name>
+    <Compile Include="Player\WalkLoopSheet_04.png">
+      <Name>WalkLoopSheet_04</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="StartScreen.png">
+      <Name>StartScreen</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Start Game Btn Large size.png">
+      <Name>Start Game Btn Large size</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

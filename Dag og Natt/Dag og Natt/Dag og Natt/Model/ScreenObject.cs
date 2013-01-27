@@ -11,6 +11,8 @@ namespace Dag_og_Natt
         protected Vector2 center;
         protected Texture2D textureDay;
         protected Texture2D textureNight;
+	    protected Rectangle currentAnimation;
+	    protected bool moving; 
 
         public Vector2 Position
         {
@@ -33,5 +35,14 @@ namespace Dag_og_Natt
         {
             spriteBatch.Draw(TextureDay, position, Color.White);
         }
+	public ScreenObject()
+	{
+		startingPosition = new Vector2(0, 0);
+		position = new Vector2(0, 0);
+		origin = new Vector2(0, 0);
+		center = new Vector2(0, 0);
+		currentAnimation = new Rectangle(0, 0, 0, 0);
+		moving = false;
+	}
     }
 }
