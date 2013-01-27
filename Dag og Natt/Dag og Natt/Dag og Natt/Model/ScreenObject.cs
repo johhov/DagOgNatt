@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Media;
 
 namespace Dag_og_Natt
 {
@@ -13,10 +14,17 @@ namespace Dag_og_Natt
         protected Texture2D textureNight;
         protected Rectangle currentAnimation;
         protected bool moving;
+        protected Song sound;
 
         public Vector2 Position
         {
             get { return position; }
+        }
+
+        public Song Song
+        {
+            get { return sound; }
+            set { this.sound = value; }
         }
 
         public Texture2D TextureDay

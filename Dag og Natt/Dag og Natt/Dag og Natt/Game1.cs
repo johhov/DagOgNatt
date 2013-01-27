@@ -1,5 +1,10 @@
+using System;
+using System.IO;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
@@ -21,12 +26,33 @@ namespace Dag_og_Natt
         public static GameState gameState;
         public int gameStateNumber;
 
+
+        AudioEngine audioEngine;
+
+        WaveBank waveBankBackground;
+        WaveBank waveBankSoundEffects;
+
+        SoundBank soundBankBackground;
+        SoundBank soundBankHeartBeat;
+        SoundBank soundBankMusic;
+        SoundBank soundBankSoundEffects;
+        SoundBank soundBankWalking;
+
+        Cue currentAmbiance;
+        string ambiance;
+        Cue currentTimeSwitch;
+        string timeSwitch;
+        
+
+
+
+
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
         private Input input;
         private List<Parallax> parallaxLayers;
         private Movable gate;
-        private Movable plant;
+        private Movable excavator;
         private NPC monster;
         private Overlay pulse;
         private Scoreboard score;
@@ -81,7 +107,7 @@ namespace Dag_og_Natt
             startScreen = new ScreenObject();
             //startButton = new ScreenObject();
             gate = new Movable(new Vector2(7000, 550), false, true, new Rectangle(0, 0, 200, 50));
-            plant = new Movable(new Vector2(2340, 550), false, true, new Rectangle(0, 0, 0, 0));
+            excavator = new Movable(new Vector2(2340, 550), false, true, new Rectangle(0, 0, 0, 0));
             monster = new NPC(new Vector2(1700, 300), true, false, new Rectangle(0, 0, 327, 360));
             pulse = new Overlay(0, new Vector2(0, 0), new Vector2(0, 0), new Vector2(0, 0));
             score = new Scoreboard(new Vector2(0, 0), new Vector2(0, 0), new Vector2(0, 0));
@@ -91,7 +117,7 @@ namespace Dag_og_Natt
 
             collidables = new List<Movable>();
             collidables.Add(gate);
-            collidables.Add(plant);
+            collidables.Add(excavator);
             collidables.Add(wolf);
 
             //Menu objects
@@ -131,6 +157,31 @@ namespace Dag_og_Natt
 
             nightOverlay = Content.Load<Texture2D>("Parallax\\Night_layer");
 
+
+
+
+
+            audioEngine = new AudioEngine(Content.RootDirectory + "//Sound//DagOgNatt.xgs");
+
+            waveBankBackground = new WaveBank(audioEngine, Content.RootDirectory + "//Sound//Background.xwb");
+            waveBankSoundEffects = new WaveBank(audioEngine, Content.RootDirectory + "//Sound//SoundEffects.xwb");
+
+            soundBankBackground = new SoundBank(audioEngine, Content.RootDirectory + "//Sound//Background.xsb");
+            soundBankHeartBeat = new SoundBank(audioEngine, Content.RootDirectory + "//Sound//HeartBeat.xsb");
+            soundBankMusic = new SoundBank(audioEngine, Content.RootDirectory + "//Sound//Music.xsb");
+            soundBankSoundEffects = new SoundBank(audioEngine, Content.RootDirectory + "//Sound//SoundEffects.xsb");
+            soundBankWalking = new SoundBank(audioEngine, Content.RootDirectory + "//Sound//Walking.xsb");
+
+            ambiance = "ForestDusk";
+            currentAmbiance = soundBankBackground.GetCue(ambiance);
+            currentAmbiance.Play();
+
+            //timeSwitch = "DawnToDusk";
+            //currentTimeSwitch = soundBankMusic.GetCue(timeSwitch);
+            //currentTimeSwitch.Play();
+
+
+
             //player.Texture = Content.Load<Texture2D>("Player\\Walk0000");
             player.Texture = Content.Load<Texture2D>("Player\\WalkLoopSheet_05");
 
@@ -138,22 +189,30 @@ namespace Dag_og_Natt
             startScreen.TextureDay = Content.Load<Texture2D>("StartScreen");
 
             player.TextureDie = Content.Load<Texture2D>("Player\\deathAnimation");
-            gate.TextureDay = Content.Load<Texture2D>("Gate");
-            plant.TextureDay = Content.Load<Texture2D>("Plant");
-            monster.TextureDay = Content.Load<Texture2D>("UlvMonsterHode_Spritesheet5x5");
-            pulse.TextureDay = Content.Load<Texture2D>("Hjertebank");
-            score.TextureDay = Content.Load<Texture2D>("SolUI");
-            numbOne.TextureDay = Content.Load<Texture2D>("numbers");
-            heartbeat = Content.Load<Song>("Song\\Heartbeat");
 
+            gate.TextureDay = Content.Load<Texture2D>("Gate");
+
+            excavator.TextureDay = Content.Load<Texture2D>("Plant");
+            //excavator.Song = Content.Load<Song>("Song\\excavator");
+
+            monster.TextureDay = Content.Load<Texture2D>("UlvMonsterHode_Spritesheet5x5");
+
+            pulse.TextureDay = Content.Load<Texture2D>("Hjertebank");
+
+            score.TextureDay = Content.Load<Texture2D>("SolUI");
+
+            numbOne.TextureDay = Content.Load<Texture2D>("numbers");
+
+            heartbeat = Content.Load<Song>("Song\\Heartbeat");
+            
             wolf.TextureDay = Content.Load<Texture2D>("Image 2_Wolf_day");
             wolf.TextureNight = Content.Load<Texture2D>("Image 2_Wolf_night");
 
             //  dayOne = Content.Load<Song>("Song\\music.full.dawn");
             // nightOne = Content.Load<Song>("Song\\music.full.dusk");
-            MediaPlayer.IsRepeating = true;
-            MediaPlayer.Volume = 0.3f;
-            MediaPlayer.Play(heartbeat);
+            //MediaPlayer.IsRepeating = true;
+            //MediaPlayer.Volume = 0.3f;
+            //MediaPlayer.Play(heartbeat);
            
 
             Mouse.WindowHandle = this.Window.Handle;
@@ -189,6 +248,7 @@ namespace Dag_og_Natt
             if (Global.gamestart < 1)
             {
                 Global.gamestart = gameTime.TotalGameTime.TotalSeconds;
+
             }
 
             if (gameState == GameState.Menu)
@@ -197,6 +257,8 @@ namespace Dag_og_Natt
                 {
                     button.Update();
                 }
+
+                
             }
             else if (gameState == GameState.Running)
             {
@@ -236,9 +298,9 @@ namespace Dag_og_Natt
                 }
 
                 wolf.Update();
-                plant.Update();
+                excavator.Update();
                 gate.Update();
-                plant.Update();
+                excavator.Update();
                 monster.Update();
                 player.Update();
                 pulse.Update(gameTime);
@@ -251,7 +313,68 @@ namespace Dag_og_Natt
                 parallaxLayers[1].Update(player);
                 parallaxLayers[2].Update(player);
 
-                //Character
+
+                if (Global.offset < 2650)
+                {
+                    if (Global.day)
+                    {
+                        if (ambiance != "SuburbDawn")
+                        {
+                            currentAmbiance.Stop(AudioStopOptions.Immediate);
+                            ambiance = "SuburbDawn";
+                            currentAmbiance = soundBankBackground.GetCue(ambiance);
+                            currentAmbiance.Play();
+                        }
+                    }
+                    else
+                    {
+                        if (ambiance != "SuburbDusk")
+                        {
+                            currentAmbiance.Stop(AudioStopOptions.Immediate);
+                            ambiance = "SuburbDusk";
+                            currentAmbiance = soundBankBackground.GetCue(ambiance);
+                            currentAmbiance.Play();
+                        }
+                    }
+                }
+                else if (Global.offset > 2650 && Global.offset < 5800)
+                {
+                    if (Global.day)
+                    {
+                        if (ambiance != "ForestDawn")
+                        {
+                            currentAmbiance.Stop(AudioStopOptions.Immediate);
+                            ambiance = "ForestDawn";
+                            currentAmbiance = soundBankBackground.GetCue(ambiance);
+                            currentAmbiance.Play();
+                        }
+                    }
+                    else
+                    {
+                        if (ambiance != "ForestDusk")
+                        {
+                            currentAmbiance.Stop(AudioStopOptions.Immediate);
+                            ambiance = "ForestDusk";
+                            currentAmbiance = soundBankBackground.GetCue(ambiance);
+                            currentAmbiance.Play();
+                        }
+                    }
+                }
+                else if (Global.offset > 5800)
+                {
+                    if (ambiance != "BirdgeDawn")
+                    {
+                        //currentTimeSwitch.Stop(AudioStopOptions.Immediate);
+                        //timeSwitch = "DuskToDawn";
+                        //currentTimeSwitch = soundBankBackground.GetCue(timeSwitch);
+                        //currentTimeSwitch.Play();
+
+                        currentAmbiance.Stop(AudioStopOptions.Immediate);
+                        ambiance = "BirdgeDawn";
+                        currentAmbiance = soundBankBackground.GetCue(ambiance);
+                        currentAmbiance.Play();
+                    }
+                }
             }
 
             mousePosition.X = Mouse.GetState().X;
@@ -273,7 +396,7 @@ namespace Dag_og_Natt
             {
                 if (Global.day)
                 {
-                    plant.Draw(spriteBatch);
+                    excavator.Draw(spriteBatch);
                 }
 
                 parallaxLayers[0].Draw(spriteBatch);
@@ -308,6 +431,14 @@ namespace Dag_og_Natt
                 foreach (Button button in menuButtons)
                 {
                     button.Draw(spriteBatch);
+                }
+
+                if (ambiance != "ForestDusk")
+                {
+                    currentAmbiance.Stop(AudioStopOptions.Immediate);
+                    ambiance = "ForestDusk";
+                    currentAmbiance = soundBankBackground.GetCue(ambiance);
+                    currentAmbiance.Play();
                 }
             }
 
