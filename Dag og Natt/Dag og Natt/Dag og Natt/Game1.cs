@@ -72,7 +72,7 @@ namespace Dag_og_Natt
 			player = new Player();
 
 			parallaxLayers = new List<Parallax>();
-			for (int i = 0; i < 4; i++)
+			for (int i = 0; i < 3; i++)
 			{
 				parallaxLayers.Add(new Parallax(1,i));
 			}
