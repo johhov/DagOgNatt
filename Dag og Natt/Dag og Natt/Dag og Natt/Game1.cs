@@ -33,6 +33,7 @@ namespace Dag_og_Natt
         private Scoreboard numbOne;
         private ScreenObject startScreen;
         //private ScreenObject startButton;
+        private Movable wolf;
 
         private Texture2D nightOverlay;
         private Song heartbeat;
@@ -85,10 +86,13 @@ namespace Dag_og_Natt
             pulse = new Overlay(0, new Vector2(0, 0), new Vector2(0, 0), new Vector2(0, 0));
             score = new Scoreboard(new Vector2(0, 0), new Vector2(0, 0), new Vector2(0, 0));
             numbOne = new Scoreboard(new Vector2(5, 5), new Vector2(0, 0), new Vector2(0, 0));
+            wolf = new Movable(new Vector2(4000, 550), true, false, new Rectangle(0,0,0,0));
+
 
             collidables = new List<Movable>();
             collidables.Add(gate);
             collidables.Add(plant);
+            collidables.Add(wolf);
 
             //Menu objects
             menuButtons = new List<Button>();
@@ -128,7 +132,7 @@ namespace Dag_og_Natt
             nightOverlay = Content.Load<Texture2D>("Parallax\\Night_layer");
 
             //player.Texture = Content.Load<Texture2D>("Player\\Walk0000");
-            player.Texture = Content.Load<Texture2D>("Player\\WalkLoopSheet_04");
+            player.Texture = Content.Load<Texture2D>("Player\\WalkLoopSheet_05");
 
             //startButton.TextureDay = Content.Load<Texture2D>("Start Game Btn Large size");
             startScreen.TextureDay = Content.Load<Texture2D>("StartScreen");
@@ -142,19 +146,15 @@ namespace Dag_og_Natt
             numbOne.TextureDay = Content.Load<Texture2D>("numbers");
             heartbeat = Content.Load<Song>("Song\\Heartbeat");
 
+            wolf.TextureDay = Content.Load<Texture2D>("Image 2_Wolf_day");
+            wolf.TextureNight = Content.Load<Texture2D>("Image 2_Wolf_night");
+
             //  dayOne = Content.Load<Song>("Song\\music.full.dawn");
             // nightOne = Content.Load<Song>("Song\\music.full.dusk");
             MediaPlayer.IsRepeating = true;
             MediaPlayer.Volume = 0.3f;
             MediaPlayer.Play(heartbeat);
-            if (Global.day)
-            {
-                //	MediaPlayer.Play(dayOne);
-            }
-            if (!Global.day)
-            {
-                //	MediaPlayer.Play(nightOne);
-            }
+           
 
             Mouse.WindowHandle = this.Window.Handle;
             mouseTexture = Content.Load<Texture2D>("Cursor_v03");
@@ -235,6 +235,7 @@ namespace Dag_og_Natt
                     player.Die();
                 }
 
+                wolf.Update();
                 plant.Update();
                 gate.Update();
                 plant.Update();
@@ -278,6 +279,7 @@ namespace Dag_og_Natt
                 parallaxLayers[0].Draw(spriteBatch);
                 parallaxLayers[1].Draw(spriteBatch);
 
+                wolf.Draw(spriteBatch);
                 gate.Draw(spriteBatch);
                 player.Draw(spriteBatch);
                 monster.Draw(spriteBatch);

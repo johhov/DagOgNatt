@@ -198,7 +198,7 @@ namespace Dag_og_Natt
         {
             facingLeft = false;
             position = new Vector2(490, 350);
-            moveTo = new Vector2(490, 350);
+            moveTo = position;
             dying = false;
             Global.gamestart = 0;
             Global.offset = 0;
