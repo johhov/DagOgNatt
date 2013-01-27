@@ -31,28 +31,27 @@ namespace Dag_og_Natt
         {
             objectOffset = 0;
         }
-	public void Draw(SpriteBatch spriteBatch)
-	{
-		spriteBatch.Draw(TextureDay, position, currentAnimation, Color.White);
-			//if (advance)
-			{
-				currentAnimation.X += currentAnimation.Width;
-				if (currentAnimation.X >= textureDay.Width)
-				{
-					currentAnimation.X = 0;
 
-					currentAnimation.Y += currentAnimation.Height;
-					if (currentAnimation.Y >= textureDay.Height)
-					{
-						currentAnimation.Y = 0;
-					}
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(TextureDay, position, currentAnimation, Color.White);
 
-				}
-			}
-			//advance = !advance;
+            //if (advance)
+            {
+                currentAnimation.X += currentAnimation.Width;
+                if (currentAnimation.X >= textureDay.Width)
+                {
+                    currentAnimation.X = 0;
 
+                    currentAnimation.Y += currentAnimation.Height;
+                    if (currentAnimation.Y >= textureDay.Height)
+                    {
+                        currentAnimation.Y = 0;
+                    }
+                }
+            }
 
-	}
-
+            //advance = !advance;
+        }
     }
 }

@@ -49,14 +49,14 @@ namespace Dag_og_Natt
             if (position.X + texturesDay[0].Width < Global.WINDOWWIDTH)
             {
                 spriteBatch.Draw(texturesDay[1], new Vector2(position.X + texturesDay[0].Width, 0), Color.White);
-                if (Global.day || layer != 2)
+                if (Global.day || layer != 1)
                 {
                     spriteBatch.Draw(texturesDay[0], position, Color.White);
                 }
             }
             else
             {
-                if (Global.day || layer != 2)
+                if (Global.day || layer != 1)
                 {
                     spriteBatch.Draw(texturesDay[0], position, Color.White);
                 }

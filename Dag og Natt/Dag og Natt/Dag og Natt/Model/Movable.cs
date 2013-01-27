@@ -37,7 +37,7 @@ namespace Dag_og_Natt
             moveTo = position;
             this.passableAtDay = passableAtDay;
             this.passableAtNight = passableAtNight;
-	    this.currentAnimation = currentAnimation;
+            this.currentAnimation = currentAnimation;
         }
 
         public void Update()
