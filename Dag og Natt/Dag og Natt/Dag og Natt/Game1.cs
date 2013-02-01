@@ -283,7 +283,12 @@ namespace Dag_og_Natt
 
 			if (gameState == GameState.Menu)
 			{
-				foreach (Button button in menuButtons)
+                if (dogBark.IsPlaying)
+                {
+                    dogBark.Stop(AudioStopOptions.Immediate);
+                }
+
+                foreach (Button button in menuButtons)
 				{
 					button.Update();
 				}
