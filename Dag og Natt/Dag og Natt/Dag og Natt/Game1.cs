@@ -29,6 +29,7 @@ namespace Dag_og_Natt
 
 		AudioEngine audioEngine;
         AudioCategory heartbeatCategory;
+        AudioCategory soundEffectsCategory;
 
 		WaveBank waveBankBackground;
 		WaveBank waveBankSoundEffects;
@@ -46,6 +47,7 @@ namespace Dag_og_Natt
         Cue walkingSound;
         Cue currentHeartbeat;
         string heartbeat;
+        Cue dogBark;
 
 
 
@@ -120,7 +122,7 @@ namespace Dag_og_Natt
 			pulse = new Overlay(0, new Vector2(0, 0), new Vector2(0, 0), new Vector2(0, 0));
 			score = new Scoreboard(new Vector2(0, 0), new Vector2(0, 0), new Vector2(0, 0));
 			numbOne = new Scoreboard(new Vector2(5, 5), new Vector2(0, 0), new Vector2(0, 0));
-			wolf = new Movable(new Vector2(4000, 550), true, false, new Rectangle(0, 0, 0, 0));
+			wolf = new Movable(new Vector2(5000, 550), true, false, new Rectangle(0, 0, 0, 0));
 			doneFlower = new Movable(new Vector2(6000, 80), true, true, new Rectangle(0, 0, 509, 698));
 			bridge = new Movable(new Vector2(6500, 0), true, true, new Rectangle(0, 0, 1080, 720));
 			bushCan = new Movable(new Vector2(3250, 0), true, true, new Rectangle(0, 0, 3520, 720));
@@ -197,7 +199,9 @@ namespace Dag_og_Natt
             heartbeatCategory = audioEngine.GetCategory("Heartbeat");
             heartbeatCategory.SetVolume(0.2f);
 
-
+            dogBark = soundBankSoundEffects.GetCue("MonsterWolfBark");
+            soundEffectsCategory = audioEngine.GetCategory("SoundEffects");
+            soundEffectsCategory.SetVolume(0.2f);
 
 			//player.Texture = Content.Load<Texture2D>("Player\\Walk0000");
 			player.Texture = Content.Load<Texture2D>("Player\\WalkLoopSheet_05");
@@ -475,6 +479,59 @@ namespace Dag_og_Natt
                         currentHeartbeat = soundBankHeartBeat.GetCue(heartbeat);
                         heartbeatCategory.SetVolume(0.5f);
                         currentHeartbeat.Play();
+                    }
+
+                    if (Global.offset > 7000)
+                    {
+                        
+                        
+                        if (Global.offset < 7200)
+                        { 
+                            soundEffectsCategory.SetVolume(0.1f);
+                        }
+                        else if (Global.offset > 7200 && Global.offset < 7400)
+                        {
+                            soundEffectsCategory.SetVolume(0.2f);
+                        }
+                        else if (Global.offset > 7400 && Global.offset < 7600)
+                        {
+                            soundEffectsCategory.SetVolume(0.3f);
+                        }
+                        else if (Global.offset > 7600 && Global.offset < 7800)
+                        {
+                            soundEffectsCategory.SetVolume(0.4f);
+                        }
+                        else if (Global.offset > 7800 && Global.offset < 8000)
+                        {
+                            soundEffectsCategory.SetVolume(0.5f);
+                        }
+                        else if (Global.offset > 7800 && Global.offset < 8000)
+                        {
+                            soundEffectsCategory.SetVolume(0.6f);
+                        }
+                        else if (Global.offset > 8200 && Global.offset < 8400)
+                        {
+                            soundEffectsCategory.SetVolume(0.7f);
+                        }
+                        else if (Global.offset > 8400 && Global.offset < 8600)
+                        {
+                            soundEffectsCategory.SetVolume(0.8f);
+                        }
+                        else if (Global.offset > 8600 && Global.offset < 8600)
+                        {
+                            soundEffectsCategory.SetVolume(0.9f);
+                        }
+                        else if (Global.offset > 8800)
+                        {
+                            soundEffectsCategory.SetVolume(1.0f);
+                        }
+
+                        if (!dogBark.IsPlaying)
+                        {
+                            dogBark.Stop(AudioStopOptions.Immediate);
+                            dogBark = soundBankSoundEffects.GetCue("MonsterWolfBark");
+                            dogBark.Play(); 
+                        }
                     }
 				}
 			}
