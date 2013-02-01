@@ -15,7 +15,7 @@ namespace Dag_og_Natt
 		private bool dying;
 		private bool advance;
 		private bool facingLeft;
-		private bool running;
+		public bool running;
 		private bool watercan;
 
 		public Texture2D TextureDie

@@ -16,8 +16,8 @@ Global Settings
     Header File = C:\Users\Johannes\Documents\GitHub\DagOgNatt\Dag og Natt\Dag og Natt\Dag og NattContent\XACT\DagOgNatt.h;
     Exclude Category Names = 0;
     Exclude Variable Names = 0;
-    Last Modified Low = 1365061279;
-    Last Modified High = 30276739;
+    Last Modified Low = 4203135229;
+    Last Modified High = 30277732;
 
     Category
     {
@@ -333,6 +333,8 @@ Wave Bank
     Xbox Bank Last Modified High = 0;
     PC Bank Last Modified Low = 1365111282;
     PC Bank Last Modified High = 30276739;
+    Header Last Modified Low = 0;
+    Header Last Modified High = 0;
     Bank Last Revised Low = 1108529882;
     Bank Last Revised High = 30276737;
 
@@ -465,6 +467,8 @@ Wave Bank
     Xbox Bank Last Modified High = 0;
     PC Bank Last Modified Low = 1382602282;
     PC Bank Last Modified High = 30276739;
+    Header Last Modified Low = 0;
+    Header Last Modified High = 0;
     Bank Last Revised Low = 415686978;
     Bank Last Revised High = 30276739;
 
@@ -827,6 +831,8 @@ Wave Bank
     Xbox Bank Last Modified High = 0;
     PC Bank Last Modified Low = 1389172658;
     PC Bank Last Modified High = 30276739;
+    Header Last Modified Low = 0;
+    Header Last Modified High = 0;
     Bank Last Revised Low = 1180182342;
     Bank Last Revised High = 30276738;
 
@@ -976,8 +982,8 @@ Sound Bank
     Windows File = Win\Heartbeat.xsb;
     Xbox Bank Path Edited = 0;
     Windows Bank Path Edited = 0;
-    Bank Last Modified Low = 1401323353;
-    Bank Last Modified High = 30276739;
+    Bank Last Modified Low = 2049415492;
+    Bank Last Modified High = 30277736;
     Header Last Modified High = 0;
     Header Last Modified Low = 0;
 
@@ -1000,6 +1006,7 @@ Sound Bank
 
             Play Wave Event
             {
+                Loop Count = 255;
                 Break Loop = 0;
                 Use Speaker Position = 0;
                 Use Center Speaker = 1;
@@ -1047,6 +1054,7 @@ Sound Bank
 
             Play Wave Event
             {
+                Loop Count = 255;
                 Break Loop = 0;
                 Use Speaker Position = 0;
                 Use Center Speaker = 1;
@@ -1094,6 +1102,7 @@ Sound Bank
 
             Play Wave Event
             {
+                Loop Count = 255;
                 Break Loop = 0;
                 Use Speaker Position = 0;
                 Use Center Speaker = 1;
@@ -1141,6 +1150,7 @@ Sound Bank
 
             Play Wave Event
             {
+                Loop Count = 255;
                 Break Loop = 0;
                 Use Speaker Position = 0;
                 Use Center Speaker = 1;
@@ -1188,6 +1198,7 @@ Sound Bank
 
             Play Wave Event
             {
+                Loop Count = 255;
                 Break Loop = 0;
                 Use Speaker Position = 0;
                 Use Center Speaker = 1;
@@ -1235,6 +1246,7 @@ Sound Bank
 
             Play Wave Event
             {
+                Loop Count = 255;
                 Break Loop = 0;
                 Use Speaker Position = 0;
                 Use Center Speaker = 1;
@@ -1265,7 +1277,67 @@ Sound Bank
 
     Cue
     {
-        Name = Heartbeat;
+        Name = HeartbeatSuburbDawn;
+
+        Variation
+        {
+            Variation Type = 3;
+            Variation Table Type = 1;
+            New Variation on Loop = 0;
+        }
+
+        Sound Entry
+        {
+            Name = heartbeat6;
+            Index = 1;
+            Weight Min = 0;
+            Weight Max = 255;
+        }
+    }
+
+    Cue
+    {
+        Name = HeartbeatSuburbDusk;
+
+        Variation
+        {
+            Variation Type = 3;
+            Variation Table Type = 1;
+            New Variation on Loop = 0;
+        }
+
+        Sound Entry
+        {
+            Name = heartbeat5;
+            Index = 0;
+            Weight Min = 0;
+            Weight Max = 255;
+        }
+    }
+
+    Cue
+    {
+        Name = HeartbeatForestDawn;
+
+        Variation
+        {
+            Variation Type = 3;
+            Variation Table Type = 1;
+            New Variation on Loop = 0;
+        }
+
+        Sound Entry
+        {
+            Name = heartbeat4;
+            Index = 4;
+            Weight Min = 0;
+            Weight Max = 255;
+        }
+    }
+
+    Cue
+    {
+        Name = HeartbeatForestDusk;
 
         Variation
         {
@@ -1281,6 +1353,18 @@ Sound Bank
             Weight Min = 0;
             Weight Max = 255;
         }
+    }
+
+    Cue
+    {
+        Name = HeartbeatBridgeDawn;
+
+        Variation
+        {
+            Variation Type = 3;
+            Variation Table Type = 1;
+            New Variation on Loop = 0;
+        }
 
         Sound Entry
         {
@@ -1289,35 +1373,23 @@ Sound Bank
             Weight Min = 0;
             Weight Max = 255;
         }
+    }
 
-        Sound Entry
+    Cue
+    {
+        Name = HeartbeatBridgeDusk;
+
+        Variation
         {
-            Name = heartbeat4;
-            Index = 4;
-            Weight Min = 0;
-            Weight Max = 255;
+            Variation Type = 3;
+            Variation Table Type = 1;
+            New Variation on Loop = 0;
         }
 
         Sound Entry
         {
             Name = heartbeat1;
             Index = 2;
-            Weight Min = 0;
-            Weight Max = 255;
-        }
-
-        Sound Entry
-        {
-            Name = heartbeat6;
-            Index = 1;
-            Weight Min = 0;
-            Weight Max = 255;
-        }
-
-        Sound Entry
-        {
-            Name = heartbeat5;
-            Index = 0;
             Weight Min = 0;
             Weight Max = 255;
         }
@@ -1331,8 +1403,8 @@ Sound Bank
     Windows File = Win\Walking.xsb;
     Xbox Bank Path Edited = 0;
     Windows Bank Path Edited = 0;
-    Bank Last Modified Low = 1401343354;
-    Bank Last Modified High = 30276739;
+    Bank Last Modified Low = 4204635315;
+    Bank Last Modified High = 30277732;
     Header Last Modified High = 0;
     Header Last Modified Low = 0;
 
@@ -1576,8 +1648,8 @@ Sound Bank
     Windows File = Win\Background.xsb;
     Xbox Bank Path Edited = 0;
     Windows Bank Path Edited = 0;
-    Bank Last Modified Low = 1018444902;
-    Bank Last Modified High = 30276743;
+    Bank Last Modified Low = 4204645316;
+    Bank Last Modified High = 30277732;
     Header Last Modified High = 0;
     Header Last Modified Low = 0;
 
@@ -1929,8 +2001,8 @@ Sound Bank
     Windows File = Win\Music.xsb;
     Xbox Bank Path Edited = 0;
     Windows Bank Path Edited = 0;
-    Bank Last Modified Low = 1401373356;
-    Bank Last Modified High = 30276739;
+    Bank Last Modified Low = 4204655316;
+    Bank Last Modified High = 30277732;
     Header Last Modified High = 0;
     Header Last Modified Low = 0;
 
@@ -2478,8 +2550,8 @@ Sound Bank
     Windows File = Win\SoundEffects.xsb;
     Xbox Bank Path Edited = 0;
     Windows Bank Path Edited = 0;
-    Bank Last Modified Low = 1401383357;
-    Bank Last Modified High = 30276739;
+    Bank Last Modified Low = 4204665317;
+    Bank Last Modified High = 30277732;
     Header Last Modified High = 0;
     Header Last Modified Low = 0;
 

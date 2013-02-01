@@ -28,6 +28,7 @@ namespace Dag_og_Natt
 
 
 		AudioEngine audioEngine;
+        AudioCategory heartbeatCategory;
 
 		WaveBank waveBankBackground;
 		WaveBank waveBankSoundEffects;
@@ -43,6 +44,8 @@ namespace Dag_og_Natt
 		Cue currentTimeSwitch;
 		string timeSwitch;
         Cue walkingSound;
+        Cue currentHeartbeat;
+        string heartbeat;
 
 
 
@@ -66,7 +69,7 @@ namespace Dag_og_Natt
 
 
 		private Texture2D nightOverlay;
-		private Song heartbeat;
+		
 		private Song dayOne;
 		private Song nightOne;
 		private List<Movable> collidables;
@@ -189,9 +192,10 @@ namespace Dag_og_Natt
 
             walkingSound = soundBankWalking.GetCue("Walking");
 
-			//timeSwitch = "DawnToDusk";
-			//currentTimeSwitch = soundBankMusic.GetCue(timeSwitch);
-			//currentTimeSwitch.Play();
+            heartbeat = "HeartbeatForestDawn";
+            currentHeartbeat = soundBankHeartBeat.GetCue(heartbeat);
+            heartbeatCategory = audioEngine.GetCategory("Heartbeat");
+            heartbeatCategory.SetVolume(0.2f);
 
 
 
@@ -220,7 +224,7 @@ namespace Dag_og_Natt
 			doneFlower.TextureDay = Content.Load<Texture2D>("Flower_03");
 
 
-			heartbeat = Content.Load<Song>("Song\\Heartbeat");
+			//heartbeat = Content.Load<Song>("Song\\Heartbeat");
 
 			player.TextureRun = Content.Load<Texture2D>("Player\\RunLoopSheet_02");
 			bridge.TextureDay = Content.Load<Texture2D>("Parallax\\Bridge_night");
@@ -264,6 +268,7 @@ namespace Dag_og_Natt
 		protected override void Update(GameTime gameTime)
 		{
 			//Input
+            audioEngine.Update();
 			input.Update();
 
 			if (Global.gamestart < 1)
@@ -371,6 +376,15 @@ namespace Dag_og_Natt
 							currentAmbiance = soundBankBackground.GetCue(ambiance);
 							currentAmbiance.Play();
 						}
+
+                        if (heartbeat != "HeartbeatSuburbDawn")
+                        {
+                            currentHeartbeat.Stop(AudioStopOptions.Immediate);
+                            heartbeat = "HeartbeatSuburbDawn";
+                            currentHeartbeat = soundBankHeartBeat.GetCue(heartbeat);
+                            heartbeatCategory.SetVolume(0.2f);
+                            currentHeartbeat.Play();
+                        }
 					}
 					else
 					{
@@ -381,6 +395,15 @@ namespace Dag_og_Natt
 							currentAmbiance = soundBankBackground.GetCue(ambiance);
 							currentAmbiance.Play();
 						}
+
+                        if (heartbeat != "HeartbeatSuburbDusk")
+                        {
+                            currentHeartbeat.Stop(AudioStopOptions.Immediate);
+                            heartbeat = "HeartbeatSuburbDusk";
+                            currentHeartbeat = soundBankHeartBeat.GetCue(heartbeat);
+                            heartbeatCategory.SetVolume(0.3f);
+                            currentHeartbeat.Play();
+                        }
 					}
 				}
 				else if (Global.offset > 2650 && Global.offset < 5800)
@@ -394,6 +417,15 @@ namespace Dag_og_Natt
 							currentAmbiance = soundBankBackground.GetCue(ambiance);
 							currentAmbiance.Play();
 						}
+
+                        if (heartbeat != "HeartbeatForestDawn")
+                        {
+                            currentHeartbeat.Stop(AudioStopOptions.Immediate);
+                            heartbeat = "HeartbeatForestDawn";
+                            currentHeartbeat = soundBankHeartBeat.GetCue(heartbeat);
+                            heartbeatCategory.SetVolume(0.3f);
+                            currentHeartbeat.Play();
+                        }
 					}
 					else
 					{
@@ -404,22 +436,44 @@ namespace Dag_og_Natt
 							currentAmbiance = soundBankBackground.GetCue(ambiance);
 							currentAmbiance.Play();
 						}
+
+                        if (heartbeat != "HeartbeatForestDusk")
+                        {
+                            currentHeartbeat.Stop(AudioStopOptions.Immediate);
+                            heartbeat = "HeartbeatForestDusk";
+                            currentHeartbeat = soundBankHeartBeat.GetCue(heartbeat);
+                            heartbeatCategory.SetVolume(0.4f);
+                            currentHeartbeat.Play();
+                        }
 					}
 				}
 				else if (Global.offset > 5800)
 				{
 					if (ambiance != "BirdgeDawn")
 					{
-						//currentTimeSwitch.Stop(AudioStopOptions.Immediate);
-						//timeSwitch = "DuskToDawn";
-						//currentTimeSwitch = soundBankBackground.GetCue(timeSwitch);
-						//currentTimeSwitch.Play();
-
 						currentAmbiance.Stop(AudioStopOptions.Immediate);
 						ambiance = "BirdgeDawn";
 						currentAmbiance = soundBankBackground.GetCue(ambiance);
 						currentAmbiance.Play();
 					}
+
+                    if (heartbeat != "HeartbeatBridgeDawn")
+                    {
+                        currentHeartbeat.Stop(AudioStopOptions.Immediate);
+                        heartbeat = "HeartbeatBridgeDawn";
+                        currentHeartbeat = soundBankHeartBeat.GetCue(heartbeat);
+                        heartbeatCategory.SetVolume(0.4f);
+                        currentHeartbeat.Play();
+                    }
+
+                    if (player.running && (heartbeat != "HeartbeatBridgeDusk"))
+                    {
+                        currentHeartbeat.Stop(AudioStopOptions.Immediate);
+                        heartbeat = "HeartbeatBridgedusk";
+                        currentHeartbeat = soundBankHeartBeat.GetCue(heartbeat);
+                        heartbeatCategory.SetVolume(0.5f);
+                        currentHeartbeat.Play();
+                    }
 				}
 			}
 
