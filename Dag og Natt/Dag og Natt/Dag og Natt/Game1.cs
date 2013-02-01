@@ -187,6 +187,8 @@ namespace Dag_og_Natt
 			currentAmbiance = soundBankBackground.GetCue(ambiance);
 			currentAmbiance.Play();
 
+            walkingSound = soundBankWalking.GetCue("Walking");
+
 			//timeSwitch = "DawnToDusk";
 			//currentTimeSwitch = soundBankMusic.GetCue(timeSwitch);
 			//currentTimeSwitch.Play();
@@ -304,7 +306,7 @@ namespace Dag_og_Natt
 
                     if (!walkingSound.IsPlaying)
                     {
-
+                        
                         walkingSound = soundBankWalking.GetCue("Walking");
                         walkingSound.Play();
                     }
