@@ -145,23 +145,26 @@ namespace Dag_og_Natt
 
 		public void Move(Vector2 direction, List<Movable> collidables)
 		{
-			moveTo = position + direction * speed;
-			if (direction.X < 0)
+			if (!dying && !watering)
 			{
-				facingLeft = true;
-			}
-			if (direction.X > 0)
-			{
-				facingLeft = false;
-			}
-
-			foreach (Movable collidable in collidables)
-			{
-				if (!collidable.Passable)
+				moveTo = position + direction * speed;
+				if (direction.X < 0)
 				{
-					if (collidable.Position.X <= (moveTo.X + currentAnimation.Width) && moveTo.X <= (collidable.Position.X + collidable.TextureDay.Width))
+					facingLeft = true;
+				}
+				if (direction.X > 0)
+				{
+					facingLeft = false;
+				}
+
+				foreach (Movable collidable in collidables)
+				{
+					if (!collidable.Passable)
 					{
-						moveTo = position;
+						if (collidable.Position.X <= (moveTo.X + currentAnimation.Width) && moveTo.X <= (collidable.Position.X + collidable.TextureDay.Width))
+						{
+							moveTo = position;
+						}
 					}
 				}
 			}
