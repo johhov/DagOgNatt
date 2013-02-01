@@ -42,7 +42,7 @@ namespace Dag_og_Natt
 		string ambiance;
 		Cue currentTimeSwitch;
 		string timeSwitch;
-
+        Cue walkingSound;
 
 
 
@@ -267,7 +267,6 @@ namespace Dag_og_Natt
 			if (Global.gamestart < 1)
 			{
 				Global.gamestart = gameTime.TotalGameTime.TotalSeconds;
-
 			}
 
 			if (gameState == GameState.Menu)
@@ -276,8 +275,6 @@ namespace Dag_og_Natt
 				{
 					button.Update();
 				}
-
-
 			}
 			else if (gameState == GameState.Running)
 			{
@@ -285,7 +282,6 @@ namespace Dag_og_Natt
 				{
 					gameState = GameState.Menu;
 				}
-
 
 				if (input.IsKeyPressedOnce(Keys.Down))
 				{
@@ -295,19 +291,32 @@ namespace Dag_og_Natt
 					}
 				}
 
-				if (input.IsKeyPressedOnce(Keys.LeftControl))
-				{
-				}
+                if (input.IsKeyPressed(Keys.Left) || input.IsKeyPressed(Keys.Right))
+                {
+                    if (input.IsKeyPressed(Keys.Right))
+                    {
+                        player.Move(new Vector2(1, 0), collidables);
+                    }
+                    else if (input.IsKeyPressed(Keys.Left))
+                    {
+                        player.Move(new Vector2(-1, 0), collidables);
+                    }
 
-				if (input.IsKeyPressed(Keys.Left))
-				{
-					player.Move(new Vector2(-1, 0), collidables);
-				}
+                    if (!walkingSound.IsPlaying)
+                    {
 
-				if (input.IsKeyPressed(Keys.Right))
-				{
-					player.Move(new Vector2(1, 0), collidables);
-				}
+                        walkingSound = soundBankWalking.GetCue("Walking");
+                        walkingSound.Play();
+                    }
+                }
+                else
+                {
+                    if (walkingSound.IsPlaying)
+                    {
+                        walkingSound.Stop(AudioStopOptions.Immediate);
+                    }
+                }
+
 				if (input.IsKeyPressedOnce(Keys.Space))
 				{
 					if (player.DayChange(collidables))
