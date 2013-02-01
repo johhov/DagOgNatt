@@ -12,6 +12,7 @@ namespace Dag_og_Natt
 		public int boundingBoxRightEdge;
 		private Texture2D textureDie;
 		private Texture2D textureRun;
+		private Texture2D textureCan;
 		private bool dying;
 		private bool advance;
 		private bool facingLeft;
@@ -165,7 +166,35 @@ namespace Dag_og_Natt
 			}
 			else if (moving)
 			{
-				if (running)
+				if (watercan)
+				{
+					if (facingLeft)
+					{
+						spriteBatch.Draw(TextureRun, new Rectangle((int)position.X, (int)position.Y, 300, 300), currentAnimation, Color.White, 0.0f, new Vector2(0, 0), SpriteEffects.FlipHorizontally, 0.0f);
+					}
+					if (!facingLeft)
+					{
+						spriteBatch.Draw(TextureRun, position, currentAnimation, Color.White);
+					}
+
+					if (advance)
+					{
+						currentAnimation.X += currentAnimation.Width;
+						if (currentAnimation.X >= textureRun.Width)
+						{
+							currentAnimation.X = 0;
+
+							currentAnimation.Y += currentAnimation.Height;
+							if (currentAnimation.Y >= textureRun.Height)
+							{
+								currentAnimation.Y = 0;
+							}
+						}
+					}
+					advance = !advance;
+				}
+
+				else if (running)
 				{
 					if (facingLeft)
 					{
@@ -269,7 +298,7 @@ namespace Dag_og_Natt
 		}
 		public bool DownAction()
 		{
-			if (Global.offset > 4000 && Global.offset < 5000)
+			if (Global.offset > 3800 && Global.offset < 4200)
 			{
 				watercan = true;
 
