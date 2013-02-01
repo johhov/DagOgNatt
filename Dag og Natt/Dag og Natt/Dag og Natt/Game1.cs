@@ -110,7 +110,7 @@ namespace Dag_og_Natt
 			Global.gamestart = 0;
 			startScreen = new ScreenObject();
 			//startButton = new ScreenObject();
-			gate = new Movable(new Vector2(6800, 550), false, true, new Rectangle(0, 0, 200, 50));
+			gate = new Movable(new Vector2(6900, 550), false, true, new Rectangle(0, 0, 100, 50));
 			excavator = new Movable(new Vector2(2340, 550), false, true, new Rectangle(0, 0, 0, 0));
 			flower = new Flower(new Vector2(6000, 80), false, false, new Rectangle(0, 0, 509, 698));
 			monster = new NPC(new Vector2(9000, 300), true, false, new Rectangle(0, 0, 327, 360));
@@ -187,7 +187,7 @@ namespace Dag_og_Natt
 			currentAmbiance = soundBankBackground.GetCue(ambiance);
 			currentAmbiance.Play();
 
-            walkingSound = soundBankWalking.GetCue("Walking");
+			walkingSound = soundBankWalking.GetCue("Walking");
 
 			//timeSwitch = "DawnToDusk";
 			//currentTimeSwitch = soundBankMusic.GetCue(timeSwitch);
@@ -461,13 +461,6 @@ namespace Dag_og_Natt
 				wolf.Draw(spriteBatch);
 				gate.Draw(spriteBatch);
 				bushCan.Draw(spriteBatch);
-				player.Draw(spriteBatch);
-				monster.Draw(spriteBatch);
-				pulse.Draw(spriteBatch);
-				score.Draw(spriteBatch);
-				numbOne.Drawfirst(spriteBatch);
-				
-
 				if (Global.flowerDone || flower.TextureDay == flower.TextureNight && Global.day)
 				{
 					Global.flowerDone = true;
@@ -479,6 +472,15 @@ namespace Dag_og_Natt
 				{
 					flower.Draw(spriteBatch);
 				}
+				player.Draw(spriteBatch);
+				monster.Draw(spriteBatch);
+				pulse.Draw(spriteBatch);
+				score.Draw(spriteBatch);
+				numbOne.Drawfirst(spriteBatch);
+				
+
+				
+				
 
 				parallaxLayers[2].Draw(spriteBatch);
 

@@ -345,12 +345,30 @@ namespace Dag_og_Natt
 		{
 			foreach (Movable collidable in collidables)
 			{
-
+				/*if (Global.day)
+				{
+					if (!collidable.PassableAtDay)
+					{
+						if (collidable.Position.X <= (moveTo.X + currentAnimation.Width) && moveTo.X <= (collidable.Position.X + collidable.TextureDay.Width))
+						{
+							return false;
+						}
+					}
+				}
+				else
+				{
+					if (!collidable.PassableAtNight)
+					{
+						if (collidable.Position.X <= (moveTo.X + currentAnimation.Width) && moveTo.X <= (collidable.Position.X + collidable.TextureDay.Width))
+						{
+							return false;
+						}
+					}					
+				}*/
 				if (collidable.Position.X <= (moveTo.X + currentAnimation.Width) && moveTo.X <= (collidable.Position.X + collidable.TextureDay.Width))
 				{
 					return false;
 				}
-
 			}
 			return true;
 
