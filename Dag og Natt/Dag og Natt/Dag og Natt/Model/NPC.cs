@@ -26,7 +26,10 @@ namespace Dag_og_Natt
 			this.position.X = startingPosition.X - Global.offset + objectOffset;
 			if (player.position.X >= position.X - 300)
 			{
-				player.Die();
+				if (!player.Dying)
+				{
+					player.Die();
+				}
 			}
 		}
 
