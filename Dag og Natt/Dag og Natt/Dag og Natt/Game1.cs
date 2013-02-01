@@ -66,7 +66,7 @@ namespace Dag_og_Natt
 		private Flower flower;
 		private Movable doneFlower;
 		private Movable bridge;
-
+		private Movable bushCan;
 
 		private Texture2D nightOverlay;
 		
@@ -123,7 +123,7 @@ namespace Dag_og_Natt
 			wolf = new Movable(new Vector2(4000, 550), true, false, new Rectangle(0, 0, 0, 0));
 			doneFlower = new Movable(new Vector2(6000, 80), true, true, new Rectangle(0, 0, 509, 698));
 			bridge = new Movable(new Vector2(6500, 0), true, true, new Rectangle(0, 0, 1080, 720));
-
+			bushCan = new Movable(new Vector2(3250, 0), true, true, new Rectangle(0, 0, 3520, 720));
 
 			collidables = new List<Movable>();
 			collidables.Add(gate);
@@ -217,13 +217,13 @@ namespace Dag_og_Natt
 			pulse.TextureDay = Content.Load<Texture2D>("Hjertebank");
 
 			score.TextureDay = Content.Load<Texture2D>("SolUI");
+			bushCan.TextureDay = Content.Load<Texture2D>("Kanne i busk");
 
 			numbOne.TextureDay = Content.Load<Texture2D>("numbers");
 			flower.TextureDay = Content.Load<Texture2D>("Flower_01");
 			flower.TextureNight = Content.Load<Texture2D>("Flower_02");
 			doneFlower.TextureDay = Content.Load<Texture2D>("Flower_03");
-
-
+			
 			//heartbeat = Content.Load<Song>("Song\\Heartbeat");
 
 			player.TextureRun = Content.Load<Texture2D>("Player\\RunLoopSheet_02");
@@ -356,6 +356,7 @@ namespace Dag_og_Natt
 				score.Update(gameTime);
 				numbOne.Update(gameTime);
 				bridge.Update();
+				bushCan.Update();
 
 
 				Global.offset += player.Speed * player.AtEdge;
@@ -512,11 +513,13 @@ namespace Dag_og_Natt
 
 				wolf.Draw(spriteBatch);
 				gate.Draw(spriteBatch);
+				bushCan.Draw(spriteBatch);
 				player.Draw(spriteBatch);
 				monster.Draw(spriteBatch);
 				pulse.Draw(spriteBatch);
 				score.Draw(spriteBatch);
 				numbOne.Drawfirst(spriteBatch);
+				
 
 				if (Global.flowerDone || flower.TextureDay == flower.TextureNight && Global.day)
 				{
