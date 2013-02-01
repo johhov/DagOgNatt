@@ -224,7 +224,8 @@ namespace Dag_og_Natt
 
 			player.TextureRun = Content.Load<Texture2D>("Player\\RunLoopSheet_02");
 			bridge.TextureDay = Content.Load<Texture2D>("Parallax\\Bridge_night");
-
+			player.TextureCan = Content.Load<Texture2D>("WaterCanWalkSheet_01");
+			player.TextureWatering = Content.Load<Texture2D>("PouringSheet_01");
 
 			wolf.TextureDay = Content.Load<Texture2D>("Image 2_Wolf_day");
 			wolf.TextureNight = Content.Load<Texture2D>("Image 2_Wolf_night");

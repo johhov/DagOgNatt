@@ -13,11 +13,13 @@ namespace Dag_og_Natt
 		private Texture2D textureDie;
 		private Texture2D textureRun;
 		private Texture2D textureCan;
+		private Texture2D textureWatering;
 		private bool dying;
 		private bool advance;
 		private bool facingLeft;
 		private bool running;
 		private bool watercan;
+		private bool watering;
 
 		public Texture2D TextureDie
 		{
@@ -25,6 +27,22 @@ namespace Dag_og_Natt
 			set
 			{
 				this.textureDie = value;
+			}
+		}
+		public Texture2D TextureWatering
+		{
+			get { return textureWatering; }
+			set
+			{
+				this.textureWatering = value;
+			}
+		}
+		public Texture2D TextureCan
+		{
+			get { return textureCan; }
+			set
+			{
+				this.textureCan = value;
 			}
 		}
 		public Texture2D TextureRun
@@ -73,6 +91,12 @@ namespace Dag_og_Natt
 			facingLeft = false;
 			running = false;
 			watercan = false;
+			watering = false;
+		}
+		public bool Dying
+		{
+			get { return dying;}
+			set { this.dying = value; }
 		}
 
 		new public void Update()
@@ -142,7 +166,7 @@ namespace Dag_og_Natt
 				}
 			}
 		}
-		public void Draw(SpriteBatch spriteBatch)
+		new public void Draw(SpriteBatch spriteBatch)
 		{
 			if (dying)
 			{
@@ -164,28 +188,49 @@ namespace Dag_og_Natt
 				}
 				advance = !advance;
 			}
+			else if (watering)
+			{
+				spriteBatch.Draw(TextureWatering, position, currentAnimation, Color.White);
+				if (advance)
+				{
+					currentAnimation.X += currentAnimation.Width;
+					if (currentAnimation.X >= textureWatering.Width)
+					{
+						currentAnimation.X = 0;
+
+						currentAnimation.Y += currentAnimation.Height;
+						if (currentAnimation.Y >= textureWatering.Height)
+						{
+							currentAnimation.Y = 0;
+							watering = false;
+						}
+					}
+				}
+				advance = !advance;
+
+			}
 			else if (moving)
 			{
 				if (watercan)
 				{
 					if (facingLeft)
 					{
-						spriteBatch.Draw(TextureRun, new Rectangle((int)position.X, (int)position.Y, 300, 300), currentAnimation, Color.White, 0.0f, new Vector2(0, 0), SpriteEffects.FlipHorizontally, 0.0f);
+						spriteBatch.Draw(TextureCan, new Rectangle((int)position.X, (int)position.Y, 300, 300), currentAnimation, Color.White, 0.0f, new Vector2(0, 0), SpriteEffects.FlipHorizontally, 0.0f);
 					}
 					if (!facingLeft)
 					{
-						spriteBatch.Draw(TextureRun, position, currentAnimation, Color.White);
+						spriteBatch.Draw(TextureCan, position, currentAnimation, Color.White);
 					}
 
 					if (advance)
 					{
 						currentAnimation.X += currentAnimation.Width;
-						if (currentAnimation.X >= textureRun.Width)
+						if (currentAnimation.X >= textureCan.Width)
 						{
 							currentAnimation.X = 0;
 
 							currentAnimation.Y += currentAnimation.Height;
-							if (currentAnimation.Y >= textureRun.Height)
+							if (currentAnimation.Y >= textureCan.Height)
 							{
 								currentAnimation.Y = 0;
 							}
@@ -252,7 +297,19 @@ namespace Dag_og_Natt
 
 			else
 			{
-				spriteBatch.Draw(TextureDay, position, currentAnimation, Color.White);
+				if (watercan)
+				{
+					spriteBatch.Draw(TextureCan, position, currentAnimation, Color.White);
+				}
+				else if (running)
+				{
+					spriteBatch.Draw(TextureRun, position, currentAnimation, Color.White);
+				}
+				else
+				{
+					spriteBatch.Draw(TextureDay, position, currentAnimation, Color.White);
+				}
+
 			}
 		}
 
@@ -298,7 +355,7 @@ namespace Dag_og_Natt
 		}
 		public bool DownAction()
 		{
-			if (Global.offset > 3800 && Global.offset < 4200)
+			if (Global.offset > 4000 && Global.offset < 4400)
 			{
 				watercan = true;
 
@@ -306,7 +363,12 @@ namespace Dag_og_Natt
 			if (Global.offset > 5000 && Global.offset < 6300 && watercan && Global.day)
 			{
 				watercan = false;
+
+				watering = true;
+				currentAnimation.X = 0;
+				currentAnimation.Y = 0;
 				return true;
+				
 			}
 			return false;
 		}
